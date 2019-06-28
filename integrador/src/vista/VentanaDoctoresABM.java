@@ -31,7 +31,6 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
 
         lblNumero = new javax.swing.JLabel();
         lblMail = new javax.swing.JLabel();
-        lblHistorial = new javax.swing.JLabel();
         lblFechaNac = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
         txtDni = new javax.swing.JTextField();
@@ -39,8 +38,6 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         lblDni = new javax.swing.JLabel();
         lblCalle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtHistorial = new javax.swing.JTextArea();
         txtNombre = new javax.swing.JTextField();
         txtFechaNac = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
@@ -54,8 +51,18 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         lblTelefono = new javax.swing.JLabel();
         lblProvincia = new javax.swing.JLabel();
         txtMail = new javax.swing.JTextField();
+        lblMatricula = new javax.swing.JLabel();
+        txtMatricula = new javax.swing.JTextField();
+        lblComienza = new javax.swing.JLabel();
+        txtComienza = new javax.swing.JTextField();
+        lblHorarioTurno = new javax.swing.JLabel();
+        lblTermina = new javax.swing.JLabel();
+        txtTermina = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detalle Doctor");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -65,8 +72,6 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         lblNumero.setText("Nº:");
 
         lblMail.setText("Mail: ");
-
-        lblHistorial.setText("Historial:");
 
         lblFechaNac.setText("F. Nacimiento:");
 
@@ -91,10 +96,6 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         lblDni.setText("DNI: ");
 
         lblCalle.setText("Calle:");
-
-        txtHistorial.setColumns(20);
-        txtHistorial.setRows(5);
-        jScrollPane1.setViewportView(txtHistorial);
 
         txtNombre.setToolTipText("");
 
@@ -122,6 +123,21 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
 
         txtMail.setToolTipText("");
 
+        lblMatricula.setText("Matricula");
+
+        lblComienza.setText("Comienza:");
+
+        txtComienza.setText("08:00");
+
+        lblHorarioTurno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHorarioTurno.setText("HORARIO TURNO");
+
+        lblTermina.setText("Termina:");
+
+        txtTermina.setText("10:00");
+
+        jLabel1.setText("Especialidad:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,26 +145,38 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHorarioTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelefono)
                             .addComponent(lblApellido)
                             .addComponent(lblMail)
                             .addComponent(lblFechaNac)
-                            .addComponent(lblNombre)
                             .addComponent(lblDni)
                             .addComponent(lblLocalidad)
                             .addComponent(lblProvincia)
                             .addComponent(lblCalle)
-                            .addComponent(lblHistorial))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblMatricula)
+                                .addComponent(lblNombre))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblComienza)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)
                                 .addComponent(lblNumero)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumero))
+                                .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
                             .addComponent(txtMail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtLocalidad)
@@ -156,15 +184,16 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                             .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDni)
+                            .addComponent(txtMatricula)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtComienza, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTermina)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTermina, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -174,6 +203,18 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDni))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMatricula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHorarioTurno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtComienza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblComienza)
+                    .addComponent(txtTermina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTermina))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,10 +250,10 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                     .addComponent(txtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProvincia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHistorial)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar)
                     .addComponent(btnAgregar))
@@ -230,7 +271,8 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         // modifico
-        this.controlador.agregarPaciente(this.txtDni.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
+        //this.controlador.agregarDoctor();
+        //this.txtDni.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -252,34 +294,39 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.txtNumero.setText("");
         this.txtLocalidad.setText("");
         this.txtProvincia.setText("");
-        this.txtHistorial.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCalle;
+    private javax.swing.JLabel lblComienza;
     private javax.swing.JLabel lblDni;
     private javax.swing.JLabel lblFechaNac;
-    private javax.swing.JLabel lblHistorial;
+    private javax.swing.JLabel lblHorarioTurno;
     private javax.swing.JLabel lblLocalidad;
     private javax.swing.JLabel lblMail;
+    private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblProvincia;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTermina;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtComienza;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtFechaNac;
-    private javax.swing.JTextArea txtHistorial;
     private javax.swing.JTextField txtLocalidad;
     private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtProvincia;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTermina;
     // End of variables declaration//GEN-END:variables
 }

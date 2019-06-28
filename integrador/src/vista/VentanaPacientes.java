@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import modelo.*;
 
 /**
  *
@@ -19,7 +20,9 @@ public class VentanaPacientes extends javax.swing.JFrame {
     
     private final Controlador controlador;
     private final JFrame previo;
+    private Paciente paciente;
     
+        
     public VentanaPacientes(Controlador c, JFrame p) {
         this.controlador = c;
         this.previo = p;
@@ -27,7 +30,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         limpiar(); 
     }
 
-    private void limpiar () {
+    public void limpiar() {
         // pueblo la lista
         this.listaPacientes.setListData(this.controlador.listarPacientes().toArray());        
         // deselecciono la lista
@@ -118,11 +121,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.previo.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        
         VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this);
         this.setVisible(false);
         vpABM.setLocationRelativeTo(null);
@@ -135,7 +138,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private void listaPacientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPacientesValueChanged
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
-            
+            this.paciente = (Paciente) this.listaPacientes.getSelectedValue();
         }
         /*
         if (!this.listaPacientes.isSelectionEmpty()) {
@@ -185,7 +188,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
-        VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this);
+        VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this,this.paciente);
         this.setVisible(true);
         vpABM.setLocationRelativeTo(null);
         vpABM.setResizable(false);

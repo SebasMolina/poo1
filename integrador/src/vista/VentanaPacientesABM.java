@@ -6,7 +6,9 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
+import modelo.*;
 
 /**
  *
@@ -16,12 +18,25 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
     private final Controlador controlador;
     private final JFrame previo;
+    private Paciente paciente;
+    private boolean constructor;
     
     public VentanaPacientesABM(Controlador c, JFrame p) {
         this.controlador = c;
+        this.constructor = true;
         this.previo = p;
         initComponents();
-        limpiar(); 
+        limpiar();
+        btnEliminar.setVisible(false);
+    }
+    
+    public VentanaPacientesABM(Controlador c, JFrame p, Paciente pa) {
+        this.controlador = c;
+        this.constructor = false;
+        this.previo = p;
+        this.paciente = pa;
+        initComponents();
+        mostrar(); 
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +68,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtHistorial = new javax.swing.JTextArea();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalle Paciente");
@@ -122,6 +138,13 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         txtHistorial.setRows(5);
         jScrollPane1.setViewportView(txtHistorial);
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +185,8 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)))
@@ -215,7 +240,8 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar)
-                    .addComponent(btnAgregar))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEliminar))
                 .addContainerGap())
         );
 
@@ -229,9 +255,14 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        // modifico        
-        this.controlador.agregarPaciente(this.txtDni.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
+        // modifico
+        if(this.constructor){
+            this.controlador.agregarPaciente(this.txtDni.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
+        } else {
+            this.controlador.editarPaciente(this.paciente, this.txtDni.getText(),this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(), this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
+        } 
         limpiar();
+        
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -241,6 +272,27 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void mostrar() {
+        // limpio las cajas de texto y labels
+        this.txtDni.setText(this.paciente.getDni());
+        this.txtNombre.setText(this.paciente.getNombres());
+        this.txtApellido.setText(this.paciente.getApellidos());
+        this.txtTelefono.setText(this.paciente.getTelefono());
+        this.txtMail.setText(this.paciente.getMail());
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        this.txtFechaNac.setText(fecha.format(this.paciente.getFechaNacimiento()));
+        Domicilio d = new Domicilio();
+        d = this.paciente.getDomicilio();
+        this.txtCalle.setText(d.getCalle());
+        this.txtNumero.setText(d.getNumero());
+        this.txtLocalidad.setText(d.getLocalidad());
+        this.txtProvincia.setText(d.getProvincia());
+        this.txtHistorial.setText(this.paciente.getHistorial());
+    }
     private void limpiar() {
         // limpio las cajas de texto y labels
         this.txtDni.setText("");
@@ -259,6 +311,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApellido;

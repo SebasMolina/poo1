@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 
 /**
@@ -21,6 +22,7 @@ public class VentanaCitasABM extends javax.swing.JFrame {
         initComponents();
         this.controlador = c;
         this.previo = p;
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,8 +56,6 @@ public class VentanaCitasABM extends javax.swing.JFrame {
 
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Citas");
-
-        comboPaciente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -165,7 +165,12 @@ public class VentanaCitasABM extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
+    private void limpiar(){
+        DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
+        this.comboPaciente.setModel(modeloComboPacientes);
+        // deselecciono el combo
+        this.comboPaciente.setSelectedIndex(-1);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

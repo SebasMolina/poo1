@@ -64,7 +64,7 @@ public class Controlador {
         return this.persistencia.buscar(Persona.class, id);
     }
     
-    public void editarEmpleado(Paciente p, String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
+    public void editarPaciente(Paciente p, String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
         if (p != null) {
             this.persistencia.iniciarTransaccion();
             try {
@@ -81,14 +81,44 @@ public class Controlador {
                 d.setLocalidad(localidad.toUpperCase());
                 d.setProvincia(provincia.toUpperCase());
                 p.setHistorial(historial);
-                
                 this.persistencia.modificar(p);
                 this.persistencia.confirmarTransaccion();
             } catch (ParseException ex) {
                 this.persistencia.descartarTransaccion();
             }
         }
+    }/*
+    public int eliminarEmpleado(Empleado e) {
+        if (e.getProyectos().isEmpty()) {
+            this.persistencia.iniciarTransaccion();
+            Departamento d = e.getDepartamento();
+            d.eliminarEmpleado(e);
+            e.setDepartamento(null);
+            this.persistencia.eliminar(e);
+            this.persistencia.modificar(d);
+            this.persistencia.confirmarTransaccion();
+            return 0;
+        } else {
+            return 1;
+        }
+        // que pasa con un empleado que es gerente?
+        // no debo manejar esa parte de la relacion para eliminar un empleado?
+    }*/
+    
+    public void agregarDoctor(String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
+        this.persistencia.iniciarTransaccion();
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            Paciente p = new Paciente(dni, nombres.toUpperCase(), apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento), calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), historial.toUpperCase());
+            // si es un departamento valido
+            this.persistencia.insertar(p);
+            this.persistencia.confirmarTransaccion();
+        } catch (ParseException ex) {
+            this.persistencia.descartarTransaccion();
+            System.out.println("Error al capturar fecha");
+        }
     }
+    
 /*
     public List listarEmpleados() {
         // retorno valores ordenados de la consulta
