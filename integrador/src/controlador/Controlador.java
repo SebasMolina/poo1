@@ -87,38 +87,105 @@ public class Controlador {
                 this.persistencia.descartarTransaccion();
             }
         }
-    }/*
-    public int eliminarEmpleado(Empleado e) {
-        if (e.getProyectos().isEmpty()) {
-            this.persistencia.iniciarTransaccion();
-            Departamento d = e.getDepartamento();
-            d.eliminarEmpleado(e);
-            e.setDepartamento(null);
-            this.persistencia.eliminar(e);
-            this.persistencia.modificar(d);
-            this.persistencia.confirmarTransaccion();
-            return 0;
-        } else {
-            return 1;
-        }
-        // que pasa con un empleado que es gerente?
-        // no debo manejar esa parte de la relacion para eliminar un empleado?
-    }*/
+    }
+    public int eliminarPaciente(Paciente p) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.eliminar(p);
+        this.persistencia.confirmarTransaccion();
+        return 0;
+    }
     
-    public void agregarDoctor(String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
+    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad) {
         this.persistencia.iniciarTransaccion();
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            Paciente p = new Paciente(dni, nombres.toUpperCase(), apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento), calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), historial.toUpperCase());
+            SimpleDateFormat formatoFecha1 = new SimpleDateFormat("HH:mm");
+            Medico m = new Medico(dni,matricula.toUpperCase(),formatoFecha1.parse(horaComienza), formatoFecha1.parse(horaTermina),nombres.toUpperCase(),apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento),calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), especialidad);
             // si es un departamento valido
-            this.persistencia.insertar(p);
+            if (especialidad != null) {
+                especialidad.agregarMedico(m);
+                this.persistencia.modificar(especialidad);
+            }
+            this.persistencia.insertar(m);
             this.persistencia.confirmarTransaccion();
         } catch (ParseException ex) {
             this.persistencia.descartarTransaccion();
             System.out.println("Error al capturar fecha");
         }
+        /*
+        this.persistencia.iniciarTransaccion();
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            Medico m = new Medico(dni,matricula.);
+            // si es un departamento valido
+            this.persistencia.insertar(m);
+            this.persistencia.confirmarTransaccion();
+        } catch (ParseException ex) {
+            this.persistencia.descartarTransaccion();
+            System.out.println("Error al capturar fecha");
+        } */
     }
     
+    public List listarDoctores() {
+        // retorno valores ordenados de la consulta
+        return this.persistencia.buscarTodos(Medico.class);
+        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellidos);
+    }
+    
+    public Persona buscarDoctor(Long id) {
+        return this.persistencia.buscar(Persona.class, id);
+    }
+    
+    public void editarDoctor(Paciente p, String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
+        if (p != null) {
+            this.persistencia.iniciarTransaccion();
+            try {
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                p.setDni(dni);
+                p.setNombres(nombres.toUpperCase());
+                p.setApellidos(apellidos.toUpperCase());
+                p.setTelefono(telefono);
+                p.setMail(mail);
+                p.setFechaNacimiento(formatoFecha.parse(fechaNacimiento));
+                Domicilio d = p.getDomicilio();
+                d.setCalle(calle.toUpperCase());
+                d.setNumero(numero.toUpperCase());
+                d.setLocalidad(localidad.toUpperCase());
+                d.setProvincia(provincia.toUpperCase());
+                p.setHistorial(historial);
+                this.persistencia.modificar(p);
+                this.persistencia.confirmarTransaccion();
+            } catch (ParseException ex) {
+                this.persistencia.descartarTransaccion();
+            }
+        }
+    }
+    public int eliminarDoctor(Medico m) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.eliminar(m);
+        this.persistencia.confirmarTransaccion();
+        return 0;
+    }
+    
+    public List listarEspecialidades() {
+        // retorno valores ordenados de la consulta
+        return this.persistencia.buscarTodos(Especialidad.class);
+        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellidos);
+    }
+    
+    public void agregarEspecialidades(String nombres) {
+        this.persistencia.iniciarTransaccion();
+        Especialidad p = new Especialidad(nombres.toUpperCase());
+        // si es un especialidad valido
+        this.persistencia.insertar(p);
+        this.persistencia.confirmarTransaccion();
+    }
+    public int eliminarEspecialidades(Especialidad e) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.eliminar(e);
+        this.persistencia.confirmarTransaccion();
+        return 0;
+    }
 /*
     public List listarEmpleados() {
         // retorno valores ordenados de la consulta

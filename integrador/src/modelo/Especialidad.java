@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Table(name="especialidad")
 public class Especialidad {
 @Id
-    @SequenceGenerator(name="sec_departamentos",initialValue=1,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_departamentos")
+    @SequenceGenerator(name="sec_especialidad",initialValue=1,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_especialidad")
     private int id;
     private String nombre;
     @ManyToMany(mappedBy = "especialidad")
@@ -19,13 +19,14 @@ public class Especialidad {
     public Especialidad() {
         this.medico = new ArrayList<>();
     }
+
+    public Especialidad(String nombre) {
+        this.nombre = nombre;
+        this.medico = new ArrayList<>();
+    }
     
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -51,4 +52,11 @@ public class Especialidad {
     public void quitarMedico(Medico m) {
         this.medico.remove(m);
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }

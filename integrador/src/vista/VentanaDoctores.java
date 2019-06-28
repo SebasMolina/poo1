@@ -7,6 +7,7 @@ package vista;
 
 import controlador.Controlador;
 import javax.swing.JFrame;
+import modelo.Medico;
 
 /**
  *
@@ -16,13 +17,21 @@ public class VentanaDoctores extends javax.swing.JFrame {
     
     private final Controlador controlador;
     private final JFrame previo;
+    private Medico medico;
     
     public VentanaDoctores(Controlador c, JFrame p) {
         this.controlador = c;
         this.previo = p;
         initComponents();      
-//      limpiar(); 
+        limpiar(); 
     }
+    public void limpiar() {
+        // pueblo la lista
+        this.listaDoctores.setListData(this.controlador.listarDoctores().toArray());        
+        // deselecciono la lista
+        this.listaDoctores.clearSelection();
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -32,7 +41,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
         btn_agregar = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaPacientes = new javax.swing.JList();
+        listaDoctores = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Doctores");
@@ -59,14 +68,14 @@ public class VentanaDoctores extends javax.swing.JFrame {
             }
         });
 
-        listaPacientes.setToolTipText("");
-        listaPacientes.setName(""); // NOI18N
-        listaPacientes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listaDoctores.setToolTipText("");
+        listaDoctores.setName(""); // NOI18N
+        listaDoctores.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listaPacientesValueChanged(evt);
+                listaDoctoresValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(listaPacientes);
+        jScrollPane1.setViewportView(listaDoctores);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,19 +130,19 @@ public class VentanaDoctores extends javax.swing.JFrame {
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
         // TODO add your handling code here:
         // verificamos que la lista tenga un item seleccionado
-        if (!this.listaPacientes.isSelectionEmpty()) {
-            VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this);
+        if (!this.listaDoctores.isSelectionEmpty()) {
+            VentanaDoctoresABM vdABM = new VentanaDoctoresABM(this.controlador, this, this.medico);
             this.setVisible(true);
-            vpABM.setLocationRelativeTo(null);
-            vpABM.setResizable(false);
-            vpABM.setVisible(true);
+            vdABM.setLocationRelativeTo(null);
+            vdABM.setResizable(false);
+            vdABM.setVisible(true);
         }
     }//GEN-LAST:event_btn_editarActionPerformed
 
-    private void listaPacientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPacientesValueChanged
+    private void listaDoctoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaDoctoresValueChanged
         // verificamos que la lista tenga un item seleccionado
-        if (!this.listaPacientes.isSelectionEmpty()) {
-
+        if (!this.listaDoctores.isSelectionEmpty()) {
+            this.medico = (Medico) this.listaDoctores.getSelectedValue();
         }
         /*
         if (!this.listaPacientes.isSelectionEmpty()) {
@@ -177,7 +186,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
         }
 
         // TODO add your handling code here: */
-    }//GEN-LAST:event_listaPacientesValueChanged
+    }//GEN-LAST:event_listaDoctoresValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,7 +194,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
     private javax.swing.JButton btn_editar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_titulo_lista;
-    private javax.swing.JList listaPacientes;
+    private javax.swing.JList listaDoctores;
     // End of variables declaration//GEN-END:variables
 
 }

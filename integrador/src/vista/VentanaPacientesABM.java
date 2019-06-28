@@ -8,6 +8,7 @@ package vista;
 import controlador.Controlador;
 import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -20,11 +21,13 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
     private final JFrame previo;
     private Paciente paciente;
     private boolean constructor;
+    private VentanaPacientes a;
     
     public VentanaPacientesABM(Controlador c, JFrame p) {
         this.controlador = c;
         this.constructor = true;
         this.previo = p;
+        this.a = (VentanaPacientes) p;
         initComponents();
         limpiar();
         btnEliminar.setVisible(false);
@@ -35,6 +38,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         this.constructor = false;
         this.previo = p;
         this.paciente = pa;
+        this.a = (VentanaPacientes) p;
         initComponents();
         mostrar(); 
     }
@@ -261,8 +265,8 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         } else {
             this.controlador.editarPaciente(this.paciente, this.txtDni.getText(),this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(), this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
         } 
-        limpiar();
-        
+        limpiar(); //limpia pantalla ABM
+        this.a.limpiar(); //actualiza lista de pacientes
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -274,7 +278,14 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
+        if (this.paciente != null) {
+            int i = this.controlador.eliminarPaciente(this.paciente);
+            if (i != 0) {
+                JOptionPane.showMessageDialog(null, "No es posible eliminar el Paciente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            limpiar();
+            this.a.limpiar();
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void mostrar() {
         // limpio las cajas de texto y labels

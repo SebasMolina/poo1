@@ -23,6 +23,19 @@ public class Medico extends Persona {
         this.especialidad = new ArrayList<>();
     }
     
+    public Medico(String dni, String matricula, Date horaComienza, Date horaTermina, String nombres, String apellidos, String telefono, String mail, Date fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad) {
+        super.setDni(dni);
+        this.numeroMatricula = matricula;
+        super.setNombres(nombres);
+        super.setApellidos(apellidos);
+        super.setTelefono(telefono);
+        super.setMail(mail);
+        super.setFechaNacimiento(fechaNacimiento);
+        Domicilio d = new Domicilio(calle, numero, localidad, provincia);
+        super.setDomicilio(d);
+        this.especialidad = new ArrayList<>();
+    }
+    
     public String getNumeroMatricula() {
         return numeroMatricula;
     }
