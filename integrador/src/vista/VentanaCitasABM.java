@@ -33,8 +33,8 @@ public class VentanaCitasABM extends javax.swing.JFrame {
         checkPaciente = new javax.swing.JCheckBox();
         lblTitulo = new javax.swing.JLabel();
         comboPaciente = new javax.swing.JComboBox();
-        comboDoctor = new javax.swing.JComboBox();
-        lblDoctor = new javax.swing.JLabel();
+        comboMedico = new javax.swing.JComboBox();
+        lblMedico = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         ftxtComienza = new javax.swing.JFormattedTextField();
@@ -57,7 +57,7 @@ public class VentanaCitasABM extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Citas");
 
-        lblDoctor.setText("Doctor:");
+        lblMedico.setText("Doctor:");
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,10 +100,10 @@ public class VentanaCitasABM extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblPaciente)
-                                    .addComponent(lblDoctor))
+                                    .addComponent(lblMedico))
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboMedico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(comboPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -127,8 +127,8 @@ public class VentanaCitasABM extends javax.swing.JFrame {
                     .addComponent(comboPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDoctor))
+                    .addComponent(comboMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMedico))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblcomienza)
@@ -147,10 +147,14 @@ public class VentanaCitasABM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -163,22 +167,26 @@ public class VentanaCitasABM extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     private void limpiar(){
         DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
         this.comboPaciente.setModel(modeloComboPacientes);
+        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarMedicos().toArray());
+        this.comboMedico.setModel(modeloComboMedicos);
         // deselecciono el combo
         this.comboPaciente.setSelectedIndex(-1);
+        this.comboMedico.setSelectedIndex(-1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox checkPaciente;
-    private javax.swing.JComboBox comboDoctor;
+    private javax.swing.JComboBox comboMedico;
     private javax.swing.JComboBox comboPaciente;
     private javax.swing.JFormattedTextField ftxtComienza;
     private javax.swing.JFormattedTextField ftxtTermina;
-    private javax.swing.JLabel lblDoctor;
+    private javax.swing.JLabel lblMedico;
     private javax.swing.JLabel lblPaciente;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblcomienza;

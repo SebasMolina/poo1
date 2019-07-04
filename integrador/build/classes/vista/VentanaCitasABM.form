@@ -43,11 +43,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblPaciente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblDoctor" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMedico" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboDoctor" max="32767" attributes="0"/>
+                                  <Component id="comboMedico" max="32767" attributes="0"/>
                                   <Component id="comboPaciente" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -80,8 +80,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="comboDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboMedico" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblMedico" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -128,7 +128,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboDoctor">
+    <Component class="javax.swing.JComboBox" name="comboMedico">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -138,7 +138,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblDoctor">
+    <Component class="javax.swing.JLabel" name="lblMedico">
       <Properties>
         <Property name="text" type="java.lang.String" value="Doctor:"/>
       </Properties>
