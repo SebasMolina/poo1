@@ -71,7 +71,7 @@ public class Paciente extends Persona {
         this.listaCitas.add(c);
     }
 
-    public void quitarProyecto(Cita c) {
+    public void quitarCitas(Cita c) {
         this.listaCitas.remove(c);
     }
     

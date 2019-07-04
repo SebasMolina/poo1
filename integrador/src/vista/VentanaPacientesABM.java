@@ -264,10 +264,10 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
             this.controlador.agregarPaciente(this.txtDni.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
         } else {
             this.controlador.editarPaciente(this.paciente, this.txtDni.getText(),this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(), this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
-        } 
-        limpiar(); //limpia pantalla ABM
-        this.a.limpiar(); //actualiza lista de pacientes
-
+        }
+        this.a.limpiar();
+        this.previo.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -277,14 +277,14 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
         if (this.paciente != null) {
             int i = this.controlador.eliminarPaciente(this.paciente);
             if (i != 0) {
                 JOptionPane.showMessageDialog(null, "No es posible eliminar el Paciente", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            limpiar();
             this.a.limpiar();
+            this.previo.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void mostrar() {

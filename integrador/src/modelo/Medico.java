@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @DiscriminatorValue("medicos")
@@ -13,19 +14,21 @@ public class Medico extends Persona {
     private String numeroMatricula;
     @ManyToMany
     private List<Especialidad> especialidad;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date horarioInicio;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date horarioFinal;
+    //@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private String horarioInicio;
+    //@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private String horarioFinal;
     private int tiempoTurno;
 
     public Medico() {
         this.especialidad = new ArrayList<>();
     }
     
-    public Medico(String dni, String matricula, Date horaComienza, Date horaTermina, String nombres, String apellidos, String telefono, String mail, Date fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad) {
+    public Medico(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, Date fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         super.setDni(dni);
         this.numeroMatricula = matricula;
+        this.horarioInicio = horaComienza;
+        this.horarioFinal = horaTermina;
         super.setNombres(nombres);
         super.setApellidos(apellidos);
         super.setTelefono(telefono);
@@ -34,6 +37,7 @@ public class Medico extends Persona {
         Domicilio d = new Domicilio(calle, numero, localidad, provincia);
         super.setDomicilio(d);
         this.especialidad = new ArrayList<>();
+        this.tiempoTurno= tiempoTurno;
     }
     
     public String getNumeroMatricula() {
@@ -52,21 +56,19 @@ public class Medico extends Persona {
         this.especialidad = especialidad;
     }
 
-    
-
-    public Date getHorarioInicio() {
+    public String getHorarioInicio() {
         return horarioInicio;
     }
 
-    public void setHorarioInicio(Date horarioInicio) {
+    public void setHorarioInicio(String horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
 
-    public Date getHorarioFinal() {
+    public String getHorarioFinal() {
         return horarioFinal;
     }
 
-    public void setHorarioFinal(Date horarioFinal) {
+    public void setHorarioFinal(String horarioFinal) {
         this.horarioFinal = horarioFinal;
     }
 

@@ -32,8 +32,8 @@ public class VentanaCitasABM extends javax.swing.JFrame {
         lblPaciente = new javax.swing.JLabel();
         checkPaciente = new javax.swing.JCheckBox();
         lblTitulo = new javax.swing.JLabel();
-        comboPaciente = new javax.swing.JComboBox<>();
-        comboDoctor = new javax.swing.JComboBox<>();
+        comboPaciente = new javax.swing.JComboBox();
+        comboDoctor = new javax.swing.JComboBox();
         lblDoctor = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -56,8 +56,6 @@ public class VentanaCitasABM extends javax.swing.JFrame {
 
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Citas");
-
-        comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDoctor.setText("Doctor:");
 
@@ -176,8 +174,8 @@ public class VentanaCitasABM extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox checkPaciente;
-    private javax.swing.JComboBox<String> comboDoctor;
-    private javax.swing.JComboBox<String> comboPaciente;
+    private javax.swing.JComboBox comboDoctor;
+    private javax.swing.JComboBox comboPaciente;
     private javax.swing.JFormattedTextField ftxtComienza;
     private javax.swing.JFormattedTextField ftxtTermina;
     private javax.swing.JLabel lblDoctor;

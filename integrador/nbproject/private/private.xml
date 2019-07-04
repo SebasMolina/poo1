@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaCitas.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaPacientesABM.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaPacientes.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaDoctoresABM.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaCitasABM.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/controlador/Controlador.java</file>
-            <file>file:/home/sebas/NetBeansProjects/integrador/src/vista/VentanaDoctores.java</file>
+            <file>file:/home/sebas/poo/integrador/src/controlador/Controlador.java</file>
+            <file>file:/home/sebas/poo/integrador/src/META-INF/persistence.xml</file>
+            <file>file:/home/sebas/poo/integrador/src/vista/VentanaDoctoresABM.java</file>
         </group>
     </open-files>
 </project-private>

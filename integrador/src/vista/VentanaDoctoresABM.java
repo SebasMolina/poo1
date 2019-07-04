@@ -6,7 +6,10 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -15,7 +18,6 @@ import modelo.*;
  */
 
 public class VentanaDoctoresABM extends javax.swing.JFrame {
-
     private final Controlador controlador;
     private final JFrame previo;
     private Medico medico;
@@ -29,6 +31,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.a = (VentanaDoctores) p;
         initComponents();
         limpiar();
+        btnEliminar.setVisible(false);
     }
     
     public VentanaDoctoresABM(Controlador c, JFrame p, Medico m) {
@@ -38,7 +41,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.a = (VentanaDoctores) p;
         this.medico = m;
         initComponents();
-        limpiar();
+        mostrar();
     }
 
     @SuppressWarnings("unchecked")
@@ -74,8 +77,11 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         lblHorarioTurno = new javax.swing.JLabel();
         lblTermina = new javax.swing.JLabel();
         txtTermina = new javax.swing.JTextField();
-        comboEspecialidades = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        comboEspecialidades = new javax.swing.JComboBox();
+        lblEspecialidad = new javax.swing.JLabel();
+        lblTiempoTurno = new javax.swing.JLabel();
+        txtTiempoTurno = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalle Doctor");
@@ -152,7 +158,18 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
 
         txtTermina.setText("10:00");
 
-        jLabel1.setText("Especialidad:");
+        lblEspecialidad.setText("Especialidad:");
+
+        lblTiempoTurno.setText("Tiempo de turno:");
+
+        txtTiempoTurno.setToolTipText("");
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,6 +181,8 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                     .addComponent(lblHorarioTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar))
@@ -177,13 +196,12 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                             .addComponent(lblLocalidad)
                             .addComponent(lblProvincia)
                             .addComponent(lblCalle)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblMatricula)
-                                .addComponent(lblNombre))
-                            .addComponent(jLabel1)
+                            .addComponent(lblMatricula)
+                            .addComponent(lblEspecialidad)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(lblComienza)))
+                                .addComponent(lblComienza))
+                            .addComponent(lblNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboEspecialidades, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -209,7 +227,12 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblTermina)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTermina, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtTermina, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTiempoTurno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -268,11 +291,16 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(lblEspecialidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTiempoTurno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar)
-                    .addComponent(btnAgregar))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEliminar))
                 .addContainerGap())
         );
 
@@ -288,25 +316,66 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         // TODO add your handling code here:
         // modifico
         if(this.constructor){
-            this.controlador.agregarDoctor(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem());
+            this.controlador.agregarDoctor(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } else {
-            //this.controlador.editarDoctor();
+            this.controlador.editarDoctor(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } 
         limpiar(); //limpia pantalla ABM
         this.a.limpiar(); //actualiza lista de pacientes
-
+        this.previo.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void mostrar() {
+        // muestro las cajas de texto y labels
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        this.txtDni.setText(this.medico.getDni());
+        this.txtMatricula.setText(this.medico.getNumeroMatricula());
+        this.txtComienza.setText(this.medico.getHorarioInicio());
+        this.txtTermina.setText(this.medico.getHorarioFinal());
+        this.txtNombre.setText(this.medico.getNombres());
+        this.txtApellido.setText(this.medico.getApellidos());
+        this.txtTelefono.setText(this.medico.getTelefono());
+        this.txtMail.setText(this.medico.getMail());
+        this.txtFechaNac.setText(fecha.format(this.medico.getFechaNacimiento()));
+        Domicilio d = new Domicilio();
+        d = this.medico.getDomicilio();
+        this.txtCalle.setText(d.getCalle());
+        this.txtNumero.setText(d.getNumero());
+        this.txtLocalidad.setText(d.getLocalidad());
+        this.txtProvincia.setText(d.getProvincia());
+        this.txtTiempoTurno.setText(String.valueOf(this.medico.getTiempoTurno()));
+        if (medico.getEspecialidad()!= null) {
+                this.comboEspecialidades.setSelectedItem(medico.getEspecialidad());
+            } else {
+                this.comboEspecialidades.setSelectedItem(null);
+            }
+    }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.previo.setVisible(true);
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (this.medico != null) {
+            int i = this.controlador.eliminarDoctor(this.medico);
+            if (i != 0) {
+                JOptionPane.showMessageDialog(null, "No es posible eliminar el Paciente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            this.a.limpiar();
+            this.previo.setVisible(true);
+            this.dispose();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     private void limpiar() {
         // limpio las cajas de texto y labels
         this.txtDni.setText("");
         this.txtMatricula.setText("");
+        this.txtComienza.setText("");
+        this.txtTermina.setText("");
         this.txtNombre.setText("");
         this.txtApellido.setText("");
         this.txtTelefono.setText("");
@@ -316,17 +385,22 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.txtNumero.setText("");
         this.txtLocalidad.setText("");
         this.txtProvincia.setText("");
+        DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
+        this.comboEspecialidades.setModel(modeloComboPacientes);
+        // deselecciono el combo
+        this.comboEspecialidades.setSelectedIndex(-1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox<String> comboEspecialidades;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox comboEspecialidades;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCalle;
     private javax.swing.JLabel lblComienza;
     private javax.swing.JLabel lblDni;
+    private javax.swing.JLabel lblEspecialidad;
     private javax.swing.JLabel lblFechaNac;
     private javax.swing.JLabel lblHorarioTurno;
     private javax.swing.JLabel lblLocalidad;
@@ -337,6 +411,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
     private javax.swing.JLabel lblProvincia;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTermina;
+    private javax.swing.JLabel lblTiempoTurno;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtComienza;
@@ -350,5 +425,6 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
     private javax.swing.JTextField txtProvincia;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTermina;
+    private javax.swing.JTextField txtTiempoTurno;
     // End of variables declaration//GEN-END:variables
 }

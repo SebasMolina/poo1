@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.Persistencia;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,15 +96,15 @@ public class Controlador {
         return 0;
     }
     
-    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad) {
+    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         this.persistencia.iniciarTransaccion();
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatoFecha1 = new SimpleDateFormat("HH:mm");
-            Medico m = new Medico(dni,matricula.toUpperCase(),formatoFecha1.parse(horaComienza), formatoFecha1.parse(horaTermina),nombres.toUpperCase(),apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento),calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), especialidad);
+            Medico m = new Medico(dni,matricula.toUpperCase(),horaComienza.toUpperCase(),horaTermina.toUpperCase(),nombres.toUpperCase(),apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento),calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), especialidad, tiempoTurno);
             // si es un departamento valido
             if (especialidad != null) {
-                especialidad.agregarMedico(m);
+                m.agregarEspecialidad(especialidad); //agrego al medico la especialidad y en la base de datos
+                especialidad.agregarMedico(m);  //agrego en especialidad al medico. hago de los 2 lados.
                 this.persistencia.modificar(especialidad);
             }
             this.persistencia.insertar(m);
@@ -112,18 +113,6 @@ public class Controlador {
             this.persistencia.descartarTransaccion();
             System.out.println("Error al capturar fecha");
         }
-        /*
-        this.persistencia.iniciarTransaccion();
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            Medico m = new Medico(dni,matricula.);
-            // si es un departamento valido
-            this.persistencia.insertar(m);
-            this.persistencia.confirmarTransaccion();
-        } catch (ParseException ex) {
-            this.persistencia.descartarTransaccion();
-            System.out.println("Error al capturar fecha");
-        } */
     }
     
     public List listarDoctores() {
@@ -136,24 +125,27 @@ public class Controlador {
         return this.persistencia.buscar(Persona.class, id);
     }
     
-    public void editarDoctor(Paciente p, String dni, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, String historial) {
-        if (p != null) {
+    public void editarDoctor(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+        if (m != null) {
             this.persistencia.iniciarTransaccion();
             try {
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                p.setDni(dni);
-                p.setNombres(nombres.toUpperCase());
-                p.setApellidos(apellidos.toUpperCase());
-                p.setTelefono(telefono);
-                p.setMail(mail);
-                p.setFechaNacimiento(formatoFecha.parse(fechaNacimiento));
-                Domicilio d = p.getDomicilio();
+                m.setDni(dni);
+                m.setNumeroMatricula(matricula);
+                m.setHorarioInicio(horarioInicio);
+                m.setHorarioFinal(horarioFinal);
+                m.setNombres(nombres.toUpperCase());
+                m.setApellidos(apellidos.toUpperCase());
+                m.setTelefono(telefono);
+                m.setMail(mail);
+                m.setFechaNacimiento(formatoFecha.parse(fechaNacimiento));
+                Domicilio d = m.getDomicilio();
                 d.setCalle(calle.toUpperCase());
                 d.setNumero(numero.toUpperCase());
                 d.setLocalidad(localidad.toUpperCase());
                 d.setProvincia(provincia.toUpperCase());
-                p.setHistorial(historial);
-                this.persistencia.modificar(p);
+                m.setTiempoTurno(tiempoTurno);
+                this.persistencia.modificar(m);
                 this.persistencia.confirmarTransaccion();
             } catch (ParseException ex) {
                 this.persistencia.descartarTransaccion();
