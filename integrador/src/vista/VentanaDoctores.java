@@ -27,7 +27,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
     }
     public void limpiar() {
         // pueblo la lista
-        this.listaDoctores.setListData(this.controlador.listarDoctores().toArray());        
+        this.listaDoctores.setListData(this.controlador.listarMedicos().toArray());        
         // deselecciono la lista
         this.listaDoctores.clearSelection();
     }
@@ -144,48 +144,6 @@ public class VentanaDoctores extends javax.swing.JFrame {
         if (!this.listaDoctores.isSelectionEmpty()) {
             this.medico = (Medico) this.listaDoctores.getSelectedValue();
         }
-        /*
-        if (!this.listaPacientes.isSelectionEmpty()) {
-            // obtengo el item seleccionado
-            Empleado empleado = (Empleado) this.listaEmpleados.getSelectedValue();
-            // asigno los valores de los atributos a las caja de texto
-            this.labelId.setText(empleado.getId().toString());
-            this.txtApellidos.setText(empleado.getApellidos());
-            this.txtNombres.setText(empleado.getNombres());
-            // en el caso de fecha verifico si hay un valor
-            if (empleado.getFechaIngreso() != null ) {
-                // asigno el valor del atributo fechaAlta a la caja de texto
-                SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-                this.txtFechaIngreso.setText(fecha.format(empleado.getFechaIngreso()));
-            } else {
-                this.txtFechaIngreso.setText("");
-            }
-            // obtengo la direccion
-            Direccion d = empleado.getDireccion();
-            // si existe una direccion cargo
-            // asigno los valores de los atributos a las caja de texto
-            if (d != null) {
-                this.txtCalle.setText(d.getCalle());
-                this.txtNumero.setText(d.getNumero());
-                this.txtLocalidad.setText(d.getLocalidad());
-                this.txtProvincia.setText(d.getProvincia());
-            } else {
-                // sino dejo vacias las cajas de texto
-                this.txtCalle.setText("");
-                this.txtNumero.setText("");
-                this.txtLocalidad.setText("");
-                this.txtProvincia.setText("");
-            }
-            // si el departamento no existe
-            System.out.println(empleado.getDepartamento());
-            if (empleado.getDepartamento() != null) {
-                this.comboDepartamentos.setSelectedItem(empleado.getDepartamento());
-            } else {
-                this.comboDepartamentos.setSelectedItem(null);
-            }
-        }
-
-        // TODO add your handling code here: */
     }//GEN-LAST:event_listaDoctoresValueChanged
 
 

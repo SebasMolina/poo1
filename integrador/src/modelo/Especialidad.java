@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import modelo.Medico;
 
 
 @Entity
@@ -52,6 +53,10 @@ public class Especialidad {
     public void quitarMedico(Medico m) {
         this.medico.remove(m);
     }
+    
+    
+    
+    
 
     @Override
     public String toString() {

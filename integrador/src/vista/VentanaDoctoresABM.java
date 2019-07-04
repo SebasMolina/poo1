@@ -316,9 +316,9 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         // TODO add your handling code here:
         // modifico
         if(this.constructor){
-            this.controlador.agregarDoctor(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
+            this.controlador.agregarMedico(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } else {
-            this.controlador.editarDoctor(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
+            this.controlador.editarMedico(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } 
         limpiar(); //limpia pantalla ABM
         this.a.limpiar(); //actualiza lista de pacientes
@@ -345,23 +345,25 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.txtLocalidad.setText(d.getLocalidad());
         this.txtProvincia.setText(d.getProvincia());
         this.txtTiempoTurno.setText(String.valueOf(this.medico.getTiempoTurno()));
-        if (medico.getEspecialidad()!= null) {
-                this.comboEspecialidades.setSelectedItem(medico.getEspecialidad());
-            } else {
-                this.comboEspecialidades.setSelectedItem(null);
-            }
+//        this.comboEspecialidades.setSelectedItem(medico.getEspecialidad());
+        if(this.medico.getEspecialidad() != null){
+            DefaultComboBoxModel modeloComboMedico = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
+            this.comboEspecialidades.setModel(modeloComboMedico);
+        } else {
+            this.comboEspecialidades.setSelectedIndex(-1);
+        }
+        
     }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.previo.setVisible(true);
         this.dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (this.medico != null) {
-            int i = this.controlador.eliminarDoctor(this.medico);
+            int i = this.controlador.eliminarMedico(this.medico);
             if (i != 0) {
-                JOptionPane.showMessageDialog(null, "No es posible eliminar el Paciente", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No es posible eliminar el Medico", "Error", JOptionPane.ERROR_MESSAGE);
             }
             this.a.limpiar();
             this.previo.setVisible(true);
@@ -385,8 +387,8 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.txtNumero.setText("");
         this.txtLocalidad.setText("");
         this.txtProvincia.setText("");
-        DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
-        this.comboEspecialidades.setModel(modeloComboPacientes);
+        DefaultComboBoxModel modeloComboMedico = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
+        this.comboEspecialidades.setModel(modeloComboMedico);
         // deselecciono el combo
         this.comboEspecialidades.setSelectedIndex(-1);
     }

@@ -96,7 +96,7 @@ public class Controlador {
         return 0;
     }
     
-    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void agregarMedico(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         this.persistencia.iniciarTransaccion();
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,17 +115,16 @@ public class Controlador {
         }
     }
     
-    public List listarDoctores() {
+    public List listarMedicos() {
         // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Medico.class);
-        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellidos);
     }
     
     public Persona buscarDoctor(Long id) {
         return this.persistencia.buscar(Persona.class, id);
     }
     
-    public void editarDoctor(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void editarMedico(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         if (m != null) {
             this.persistencia.iniciarTransaccion();
             try {
@@ -145,6 +144,11 @@ public class Controlador {
                 d.setLocalidad(localidad.toUpperCase());
                 d.setProvincia(provincia.toUpperCase());
                 m.setTiempoTurno(tiempoTurno);
+                if (especialidad!= null) {
+                    m.agregarEspecialidad(especialidad);
+                    especialidad.agregarMedico(m);  //agrego en especialidad al medico. hago de los 2 lados.
+                this.persistencia.modificar(especialidad);
+                }
                 this.persistencia.modificar(m);
                 this.persistencia.confirmarTransaccion();
             } catch (ParseException ex) {
@@ -152,7 +156,7 @@ public class Controlador {
             }
         }
     }
-    public int eliminarDoctor(Medico m) {
+    public int eliminarMedico(Medico m) {
         this.persistencia.iniciarTransaccion();
         this.persistencia.eliminar(m);
         this.persistencia.confirmarTransaccion();
@@ -162,7 +166,6 @@ public class Controlador {
     public List listarEspecialidades() {
         // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Especialidad.class);
-        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellidos);
     }
     
     public void agregarEspecialidades(String nombres) {
