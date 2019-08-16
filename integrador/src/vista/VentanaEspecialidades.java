@@ -40,6 +40,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEspecialidades = new javax.swing.JList();
+        lblEspecialidad = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Especialidades");
@@ -69,7 +70,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         });
 
         lblListado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblListado.setText("Listado de especialidades");
+        lblListado.setText("Listado de Médicos");
 
         comboEspecialidades.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -85,6 +86,8 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         });
 
         jScrollPane1.setViewportView(listaEspecialidades);
+
+        lblEspecialidad.setText("Seleccione una especialidad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +112,10 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAgregar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimpiar)))))
+                                .addComponent(btnLimpiar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblEspecialidad)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,7 +125,9 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
                 .addComponent(lblListado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(1, 1, 1)
+                .addComponent(lblEspecialidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitulo)
@@ -187,6 +195,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox<String> comboEspecialidades;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEspecialidad;
     private javax.swing.JLabel lblListado;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
