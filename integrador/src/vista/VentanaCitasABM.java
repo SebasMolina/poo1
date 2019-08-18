@@ -171,7 +171,7 @@ public class VentanaCitasABM extends javax.swing.JFrame {
     private void limpiar(){
         DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
         this.comboPaciente.setModel(modeloComboPacientes);
-        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarMedicos().toArray());
+        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarDoctores().toArray());
         this.comboMedico.setModel(modeloComboMedicos);
         // deselecciono el combo
         this.comboPaciente.setSelectedIndex(-1);

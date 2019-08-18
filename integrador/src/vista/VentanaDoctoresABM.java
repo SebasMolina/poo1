@@ -316,9 +316,9 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         // TODO add your handling code here:
         // modifico
         if(this.constructor){
-            this.controlador.agregarMedico(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
+            this.controlador.agregarDoctor(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } else {
-            this.controlador.editarMedico(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
+            this.controlador.editarDoctor(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } 
         limpiar(); //limpia pantalla ABM
         this.a.limpiar(); //actualiza lista de pacientes
@@ -361,7 +361,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (this.medico != null) {
-            int i = this.controlador.eliminarMedico(this.medico);
+            int i = this.controlador.eliminarDoctor(this.medico);
             if (i != 0) {
                 JOptionPane.showMessageDialog(null, "No es posible eliminar el Medico", "Error", JOptionPane.ERROR_MESSAGE);
             }

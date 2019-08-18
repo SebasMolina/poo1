@@ -6,10 +6,8 @@
 package controlador;
 
 import dao.Persistencia;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import modelo.*;
 
@@ -96,7 +94,7 @@ public class Controlador {
         return 0;
     }
     
-    public void agregarMedico(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         this.persistencia.iniciarTransaccion();
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,7 +113,7 @@ public class Controlador {
         }
     }
     
-    public List listarMedicos() {
+    public List listarDoctores() {
         // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Medico.class);
     }
@@ -124,7 +122,7 @@ public class Controlador {
         return this.persistencia.buscar(Persona.class, id);
     }
     
-    public void editarMedico(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void editarDoctor(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         if (m != null) {
             this.persistencia.iniciarTransaccion();
             try {
@@ -156,7 +154,7 @@ public class Controlador {
             }
         }
     }
-    public int eliminarMedico(Medico m) {
+    public int eliminarDoctor(Medico m) {
         this.persistencia.iniciarTransaccion();
         this.persistencia.eliminar(m);
         this.persistencia.confirmarTransaccion();

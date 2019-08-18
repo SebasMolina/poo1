@@ -27,7 +27,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
     }
     public void limpiar() {
         // pueblo la lista
-        this.listaDoctores.setListData(this.controlador.listarMedicos().toArray());        
+        this.listaDoctores.setListData(this.controlador.listarDoctores().toArray());        
         // deselecciono la lista
         this.listaDoctores.clearSelection();
     }

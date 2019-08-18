@@ -6,6 +6,8 @@
 package vista;
 
 import controlador.Controlador;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,19 +16,15 @@ import controlador.Controlador;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private final Controlador controlador;
-    /**
-     * Creates new form VentanaPrincipal
-     * @param c
-     */
-
-
+    
     public VentanaPrincipal(Controlador c) {
         this.controlador = c;
         initComponents();
     }
 
-
-
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,10 +36,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btn_especialidades = new javax.swing.JButton();
         btn_historias = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana Principal");
         setMaximumSize(new java.awt.Dimension(500, 500));
         setSize(new java.awt.Dimension(300, 0));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btn_doctores.setText("Doctores");
         btn_doctores.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +134,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btn_doctoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_doctoresActionPerformed
         // TODO add your handling code here:
         VentanaDoctores vd = new VentanaDoctores(this.controlador, this);
-        this.setVisible(false);
+        this.setVisible(true);
         vd.setLocationRelativeTo(null);
         vd.setResizable(false);
         vd.setVisible(true);
@@ -149,7 +152,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btn_citasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_citasActionPerformed
         // TODO add your handling code here:
         VentanaCitas vc = new VentanaCitas(this.controlador, this);
-        this.setVisible(false);
+        this.setVisible(true);
         vc.setLocationRelativeTo(null);
         vc.setResizable(false);
         vc.setVisible(true);
@@ -173,13 +176,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_historiasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
+    
+    public void cerrar() {
+        int eleccion = JOptionPane.showConfirmDialog(rootPane, 
+                "En realidad desea realizar cerrar la aplicacion",
+                "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (eleccion == JOptionPane.YES_OPTION){
+            this.dispose();
+        }
+    }
 
     
-   
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_citas;
     private javax.swing.JButton btn_doctores;

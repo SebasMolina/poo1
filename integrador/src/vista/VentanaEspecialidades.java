@@ -8,7 +8,6 @@ package vista;
 import controlador.Controlador;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -70,7 +69,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         });
 
         lblListado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblListado.setText("Listado de Médicos");
+        lblListado.setText("Listado de Doctores");
 
         comboEspecialidades.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

@@ -32,7 +32,7 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
     }
 
     private void limpiar() {
-        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarMedicos().toArray());
+        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarDoctores().toArray());
         this.comboMedicos.setModel(modeloComboMedicos);
         this.comboMedicos.setSelectedIndex(-1);
     }
