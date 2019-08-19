@@ -182,6 +182,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
     
     public void cerrar() {
+        /*
         int eleccion = JOptionPane.showConfirmDialog(rootPane, 
                 "En realidad desea realizar cerrar la aplicacion",
                 "Mensaje de Confirmacion",
@@ -190,6 +191,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (eleccion == JOptionPane.YES_OPTION){
             this.dispose();
         }
+        */
     }
 
     

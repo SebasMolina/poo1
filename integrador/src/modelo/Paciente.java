@@ -11,9 +11,9 @@ import javax.persistence.*;
 public class Paciente extends Persona {
     
     private String historial;
-    @OneToMany (mappedBy = "paciente")
+    @OneToMany(mappedBy = "paciente")
     private List<Historia> historiaClinica;
-    @OneToMany (mappedBy = "paciente")
+    @OneToMany(mappedBy = "paciente")
     private List<Cita> listaCitas;
 
     public Paciente() {

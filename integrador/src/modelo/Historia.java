@@ -1,6 +1,7 @@
 package modelo;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -22,44 +23,51 @@ public class Historia {
     public Paciente getPaciente() {
         return paciente;
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-
     public Date getFecha() {
         return fecha;
     }
-
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public Medico getMedico() {
         return medico;
     }
-
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-    
+
+    public Historia() {
+        
+    }
+
+    public Historia(Paciente paciente, Date fecha, String descripcion, Medico medico) {
+        this.paciente = paciente;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+        this.medico = medico;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        //fomato fecha
+        return formatoFecha.format(fecha) + " - " + this.medico.getApellidos() + ' ' + this.medico.getNombres();
+        //fecha + apellido + nombre
+    }
     
 }

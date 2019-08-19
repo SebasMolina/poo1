@@ -40,7 +40,7 @@ public class VentanaHistorias extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        listaHistorias = new javax.swing.JList();
         comboPacientes = new javax.swing.JComboBox<>();
         lblPaciente = new javax.swing.JLabel();
         lblListaHistorias = new javax.swing.JLabel();
@@ -50,7 +50,7 @@ public class VentanaHistorias extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historias");
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaHistorias);
 
         comboPacientes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -122,7 +122,14 @@ public class VentanaHistorias extends javax.swing.JFrame {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
-        
+        if(!this.listaHistorias.isSelectionEmpty()){
+            VentanaHistoriasABM vhABM = new VentanaHistoriasABM(this.controlador, this, this.paciente);
+            this.setVisible(true);
+            vhABM.setLocationRelativeTo(null);
+            vhABM.setResizable(false);
+            vhABM.setVisible(true);
+        }
+        listaHistorias.getSelectedIndex();
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -139,9 +146,11 @@ public class VentanaHistorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void comboPacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboPacientesItemStateChanged
-
-
         // TODO add your handling code here:
+        Paciente p = (Paciente) comboPacientes.getSelectedItem();
+        if (p != null){
+            this.listaHistorias.setListData(p.getHistoriaClinica().toArray()); 
+        }//listar todas las historias del paciente
     }//GEN-LAST:event_comboPacientesItemStateChanged
 
 
@@ -150,9 +159,9 @@ public class VentanaHistorias extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnVer;
     private javax.swing.JComboBox<String> comboPacientes;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblListaHistorias;
     private javax.swing.JLabel lblPaciente;
+    private javax.swing.JList listaHistorias;
     // End of variables declaration//GEN-END:variables
 }

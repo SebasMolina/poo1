@@ -8,6 +8,7 @@ package controlador;
 import dao.Persistencia;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import modelo.*;
 
@@ -44,7 +45,7 @@ public class Controlador {
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             Paciente p = new Paciente(dni, nombres.toUpperCase(), apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento), calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), historial.toUpperCase());
-            // si es un departamento valido
+            // si es un paciente valido
             this.persistencia.insertar(p);
             this.persistencia.confirmarTransaccion();
         } catch (ParseException ex) {
@@ -178,6 +179,19 @@ public class Controlador {
         this.persistencia.eliminar(e);
         this.persistencia.confirmarTransaccion();
         return 0;
+    }
+    
+    public void agregarHistoria(Paciente p, Date fecha, String descripcion, Medico m) {
+        this.persistencia.iniciarTransaccion();
+        Historia h = new Historia(p, fecha, descripcion.toUpperCase(), m);
+        
+        p.agregarHistoriaClinica(h);    //agrego la historia al paciente
+        this.persistencia.modificar(p); //modifico paciente? por ahora no
+        
+        this.persistencia.insertar(h);
+        this.persistencia.confirmarTransaccion();
+        
+        
     }
 /*
     public List listarEmpleados() {

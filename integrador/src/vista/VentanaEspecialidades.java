@@ -146,9 +146,9 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
         this.previo.setVisible(true);
         this.dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -159,9 +159,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-        txtNombre.setText("");
-        comboEspecialidades.setSelectedIndex(-1);
-        //para que no seleccione 1
+        limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -184,7 +182,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
         this.comboEspecialidades.setModel(modeloCombo);
         
-        txtNombre.setText("");
+        txtNombre.setText("");// TODO add your handling code here:
         comboEspecialidades.setSelectedIndex(-1);
         this.listaEspecialidades.clearSelection();
     }

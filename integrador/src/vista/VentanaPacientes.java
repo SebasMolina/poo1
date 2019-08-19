@@ -146,11 +146,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
-        VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this,this.paciente);
-        this.setVisible(true);
-        vpABM.setLocationRelativeTo(null);
-        vpABM.setResizable(false);
-        vpABM.setVisible(true);
+            VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this,this.paciente);
+            this.setVisible(true);
+            vpABM.setLocationRelativeTo(null);
+            vpABM.setResizable(false);
+            vpABM.setVisible(true);
         }
     }//GEN-LAST:event_btn_editarActionPerformed
 
