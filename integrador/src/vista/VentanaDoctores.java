@@ -55,6 +55,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
         lbl_titulo_lista.setText("LISTA DE DOCTORES");
 
         btn_agregar.setText("Agregar Doctor");
+        btn_agregar.setToolTipText("Agregar  un nuevo doctor");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarActionPerformed(evt);
@@ -62,6 +63,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
         });
 
         btn_editar.setText("Editar Doctor");
+        btn_editar.setToolTipText("Seleccione un doctor y edite");
         btn_editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editarActionPerformed(evt);
@@ -132,7 +134,7 @@ public class VentanaDoctores extends javax.swing.JFrame {
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaDoctores.isSelectionEmpty()) {
             VentanaDoctoresABM vdABM = new VentanaDoctoresABM(this.controlador, this, this.medico);
-            this.setVisible(true);
+            this.setVisible(false);
             vdABM.setLocationRelativeTo(null);
             vdABM.setResizable(false);
             vdABM.setVisible(true);

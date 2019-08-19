@@ -98,6 +98,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         lblFechaNac.setText("F. Nacimiento:");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.setToolTipText("Limpia la pantalla");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -109,6 +110,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         txtCalle.setToolTipText("");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.setToolTipText("Agrega Doctor");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -165,6 +167,7 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         txtTiempoTurno.setToolTipText("");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setToolTipText("Elimina Doctor");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -320,10 +323,12 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         } else {
             this.controlador.editarDoctor(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
         } 
-        limpiar(); //limpia pantalla ABM
+        JOptionPane.showMessageDialog(rootPane, 
+                    "El doctor se agrego de forma exitosa",
+                    "Agregar Doctor",
+                    JOptionPane.INFORMATION_MESSAGE);
         this.a.limpiar(); //actualiza lista de pacientes
-        this.previo.setVisible(true);
-        this.dispose();
+        cerrar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void mostrar() {
@@ -345,29 +350,35 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.txtLocalidad.setText(d.getLocalidad());
         this.txtProvincia.setText(d.getProvincia());
         this.txtTiempoTurno.setText(String.valueOf(this.medico.getTiempoTurno()));
-//        this.comboEspecialidades.setSelectedItem(medico.getEspecialidad());
+//sacaremos especialidad
+/* solo se puede agregar desde la ventana especialidad y ver alli 
+NO SE PUEDE EDITAR LA ESPECIALIDAD EN ESTA PANTALLA (ver controlador)
         if(this.medico.getEspecialidad() != null){
-            DefaultComboBoxModel modeloComboMedico = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
+            DefaultComboBoxModel modeloComboMedico = new DefaultComboBoxModel(this.medico.getEspecialidad().toArray());
             this.comboEspecialidades.setModel(modeloComboMedico);
-        } else {
-            this.comboEspecialidades.setSelectedIndex(-1);
-        }
-        
+            }
+*/      this.lblEspecialidad.setVisible(false);
+        this.comboEspecialidades.setVisible(false);
+        this.btnAgregar.setText("Editar");
+        this.btnAgregar.setToolTipText("Editar Doctor");
     }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.previo.setVisible(true);
-        this.dispose();
+        cerrar();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (this.medico != null) {
-            int i = this.controlador.eliminarDoctor(this.medico);
-            if (i != 0) {
-                JOptionPane.showMessageDialog(null, "No es posible eliminar el Medico", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            int eleccion = JOptionPane.showConfirmDialog(rootPane, 
+                "Desea eliminar el Doctor?",
+                "Eliminar Doctor",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if (eleccion == JOptionPane.YES_OPTION){
+                int i = this.controlador.eliminarDoctor(this.medico);
+                this.a.limpiar();
+                cerrar();
             }
-            this.a.limpiar();
-            this.previo.setVisible(true);
-            this.dispose();
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -391,8 +402,13 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         this.comboEspecialidades.setModel(modeloComboMedico);
         // deselecciono el combo
         this.comboEspecialidades.setSelectedIndex(-1);
+        this.txtTiempoTurno.setText("");    
     }
 
+    private void cerrar(){
+        this.previo.setVisible(true);
+        this.dispose();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;

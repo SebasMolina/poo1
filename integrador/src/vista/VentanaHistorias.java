@@ -28,12 +28,13 @@ public class VentanaHistorias extends javax.swing.JFrame {
         limpiar();
     }
     
-    private void limpiar(){
+    public void limpiar(){
         DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
         this.comboPacientes.setModel(modeloComboPacientes);
-        
         // deselecciono el combo
         this.comboPacientes.setSelectedIndex(-1);
+        //
+        //this.listaHistorias.setListData(new String[0]);
     }
     
     @SuppressWarnings("unchecked")
@@ -50,7 +51,13 @@ public class VentanaHistorias extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historias");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
+        listaHistorias.setToolTipText("");
         jScrollPane1.setViewportView(listaHistorias);
 
         comboPacientes.addItemListener(new java.awt.event.ItemListener() {
@@ -127,7 +134,7 @@ public class VentanaHistorias extends javax.swing.JFrame {
         if(!this.listaHistorias.isSelectionEmpty()){
             h = (Historia) this.listaHistorias.getSelectedValue();
             VentanaHistoriasABM vhABM = new VentanaHistoriasABM(this.controlador, this, this.paciente,h);
-            this.setVisible(true);
+            this.setVisible(false);
             vhABM.setLocationRelativeTo(null);
             vhABM.setResizable(false);
             vhABM.setVisible(true);
@@ -136,7 +143,7 @@ public class VentanaHistorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        // TOD new VentanaHistoriasO add your handling code here:
         this.paciente= (Paciente) this.comboPacientes.getSelectedItem();
         if (this.paciente != null) {
             VentanaHistoriasABM vhABM = new VentanaHistoriasABM(this.controlador, this, this.paciente);
@@ -155,6 +162,16 @@ public class VentanaHistorias extends javax.swing.JFrame {
             this.listaHistorias.setListData(p.getHistoriaClinica().toArray()); 
         }//listar todas las historias del paciente
     }//GEN-LAST:event_comboPacientesItemStateChanged
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        this.paciente= (Paciente) this.comboPacientes.getSelectedItem();
+        this.listaHistorias.clearSelection();
+        this.comboPacientes.setSelectedItem(this.paciente);
+        if (this.paciente != null){
+            this.listaHistorias.setListData(this.paciente.getHistoriaClinica().toArray());
+        }
+    }//GEN-LAST:event_formWindowActivated
 
 
     

@@ -143,12 +143,14 @@ public class Controlador {
                 d.setLocalidad(localidad.toUpperCase());
                 d.setProvincia(provincia.toUpperCase());
                 m.setTiempoTurno(tiempoTurno);
+                /* la especialidad no se puede modificar en este metodo.
                 if (especialidad!= null) {
                     m.agregarEspecialidad(especialidad);
                     especialidad.agregarMedico(m);  
                 //agrego en especialidad al medico. hago de los 2 lados.
                     this.persistencia.modificar(especialidad);
                 }
+                */
                 this.persistencia.modificar(m);
                 this.persistencia.confirmarTransaccion();
             } catch (ParseException ex) {
@@ -182,6 +184,15 @@ public class Controlador {
         return 0;
     }
     
+    public int eliminarEspecialidadMedico(Especialidad e, Medico m) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.eliminar(e);
+        this.persistencia.confirmarTransaccion();
+        e.quitarMedico(m);
+        m.quitarEspecialidad(e);
+        return 0;
+    }
+    
     public void agregarHistoria(Paciente p, Date fecha, String descripcion, Medico m) {
         this.persistencia.iniciarTransaccion();
         Historia historia = new Historia(p, fecha, descripcion.toUpperCase(), m);
@@ -191,8 +202,14 @@ public class Controlador {
         //modifico paciente? por ahora no
         this.persistencia.insertar(historia);
         this.persistencia.confirmarTransaccion();
-        
-        
+    }
+    
+    public int eliminarHistoria(Historia h) {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.eliminar(h);
+        h.getPaciente().quitarHistoriaClinica(h);
+        this.persistencia.confirmarTransaccion();
+        return 0;
     }
 /*
     public List listarEmpleados() {

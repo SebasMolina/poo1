@@ -9,6 +9,7 @@ import controlador.Controlador;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -54,7 +55,8 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
         } else {
             this.txtDescripcion.setText(this.historia.getDescripcion());
             this.comboMedicos.addItem(this.historia.getMedico());
-            this.btnAgregar.setVisible(false);
+            this.btnAgregar.setText("OK");
+            this.btnAgregar.setToolTipText("Volver a la pantalla anterior");
             this.btnLimpiar.setVisible(false);
         }
         
@@ -165,23 +167,52 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        Date d = new Date();
-        this.controlador.agregarHistoria(paciente, d , txtDescripcion.getText() , (Medico) comboMedicos.getSelectedItem());
-        limpiar();
+        if (this.btnAgregar.getText()!="OK") {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "La historia clinica se agrego de forma exitosa",
+                    "Agregar Historia Clínica",
+                    JOptionPane.INFORMATION_MESSAGE);
+            Date d = new Date();
+            this.controlador.agregarHistoria(paciente, d , txtDescripcion.getText() , (Medico) comboMedicos.getSelectedItem());
+            
+            cerrar();
+        } else {
+            
+            cerrar();
+        }
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         
+        if (this.historia != null) {
+            int eleccion = JOptionPane.showConfirmDialog(rootPane, 
+                "Desea eliminar la Historia Clinica",
+                "Eliminar Historia Clínica",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if (eleccion == JOptionPane.YES_OPTION){
+                int i = this.controlador.eliminarHistoria(this.historia);
+                cerrar();
+            } else {
+                cerrar();
+            }
+
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.previo.setVisible(true);
-        this.dispose();
+        cerrar();
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
-
+    private void cerrar(){
+        this.previo.setVisible(true);
+        this.dispose();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;

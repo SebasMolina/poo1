@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Paciente extends Persona {
     
     private String historial;
-    @OneToMany(mappedBy = "paciente")
+    @OneToMany(mappedBy = "pacienteH")
     private List<Historia> historiaClinica;
     @OneToMany(mappedBy = "paciente")
     private List<Cita> listaCitas;
@@ -63,7 +63,7 @@ public class Paciente extends Persona {
         this.historiaClinica.add(h);
     }
 
-    public void quitarHustoriaClinica(Historia h) {
+    public void quitarHistoriaClinica(Historia h) {
         this.historiaClinica.remove(h);
     }
     
