@@ -357,9 +357,10 @@ NO SE PUEDE EDITAR LA ESPECIALIDAD EN ESTA PANTALLA (ver controlador)
             DefaultComboBoxModel modeloComboMedico = new DefaultComboBoxModel(this.medico.getEspecialidad().toArray());
             this.comboEspecialidades.setModel(modeloComboMedico);
             }
-*/      this.lblEspecialidad.setVisible(false);
+*/      this.btnLimpiar.setVisible(false);
+        this.lblEspecialidad.setVisible(false);
         this.comboEspecialidades.setVisible(false);
-        this.btnAgregar.setText("Editar");
+        this.btnAgregar.setText("Guardar cambios");
         this.btnAgregar.setToolTipText("Editar Doctor");
     }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -367,6 +368,7 @@ NO SE PUEDE EDITAR LA ESPECIALIDAD EN ESTA PANTALLA (ver controlador)
     }//GEN-LAST:event_formWindowClosing
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
         if (this.medico != null) {
             
             int eleccion = JOptionPane.showConfirmDialog(rootPane, 
@@ -380,7 +382,6 @@ NO SE PUEDE EDITAR LA ESPECIALIDAD EN ESTA PANTALLA (ver controlador)
                 cerrar();
             }
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void limpiar() {

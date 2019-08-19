@@ -130,16 +130,14 @@ public class VentanaPacientes extends javax.swing.JFrame {
         vpABM.setLocationRelativeTo(null);
         vpABM.setResizable(false);
         vpABM.setVisible(true);
-        
-        
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void listaPacientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPacientesValueChanged
+        // TODO add your handling code here:
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
             this.paciente = (Paciente) this.listaPacientes.getSelectedValue();
         }
-        // TODO add your handling code here: */
     }//GEN-LAST:event_listaPacientesValueChanged
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
@@ -147,7 +145,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
             VentanaPacientesABM vpABM = new VentanaPacientesABM(this.controlador, this,this.paciente);
-            this.setVisible(true);
+            this.setVisible(false);
             vpABM.setLocationRelativeTo(null);
             vpABM.setResizable(false);
             vpABM.setVisible(true);

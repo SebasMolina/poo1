@@ -34,6 +34,7 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
         this.paciente = pa;
         this.constructor=true;
         limpiar();
+        this.btnEliminar.setVisible(false);
     }
     
     public VentanaHistoriasABM(Controlador controlador, JFrame previo, Paciente pa, Historia h) {

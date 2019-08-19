@@ -149,25 +149,30 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         // TODO add your handling code here:
         Object result = JOptionPane.showInputDialog(rootPane, "Ingrese:",
                 "Agregar Especialidad",JOptionPane.PLAIN_MESSAGE);
-        this.controlador.agregarEspecialidades(result.toString());
+        if(result!=null){
+            this.controlador.agregarEspecialidades(result.toString());
+        }
         limpiar();
     }//GEN-LAST:event_btnAgregarEspecialidadActionPerformed
 
     private void btnEliminarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDoctorActionPerformed
         // TODO add your handling code here:
         
-        
-        int eleccion = JOptionPane.showConfirmDialog(rootPane, 
-                "Desea eliminar de esta especialidad?",
-                "Eliminar Doctor de Especialidad",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-            if (eleccion == JOptionPane.YES_OPTION){
-                //aca va el metodo para elimiar doctor
-                limpiar();
-            }
-        
-        
+        if (!this.listaEspecialidades.isSelectionEmpty()) {
+            Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
+            Medico m = (Medico) listaEspecialidades.getSelectedValue();
+            int eleccion = JOptionPane.showConfirmDialog(rootPane, 
+                    "Desea eliminar a este Doctor?",
+                    "Eliminar Doctor de Especialidad",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+                if (eleccion == JOptionPane.YES_OPTION){
+                    //aca va el metodo para elimiar doctor
+                    this.controlador.eliminarEspecialidadDoctor(e, m);
+                    //limpiar();
+                }
+        }
+        mostrar();
     }//GEN-LAST:event_btnEliminarDoctorActionPerformed
 
     private void btnEliminarEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEspecialidadActionPerformed
@@ -183,21 +188,26 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
                 int i = this.controlador.eliminarEspecialidades(e);
                 limpiar();
             }
-            limpiar();
+            
         }
     }//GEN-LAST:event_btnEliminarEspecialidadActionPerformed
 
     private void comboEspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEspecialidadesItemStateChanged
-        Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
-        if (e != null){
-            this.listaEspecialidades.setListData(e.getMedico().toArray()); 
-        }
+        mostrar();
     }//GEN-LAST:event_comboEspecialidadesItemStateChanged
 
     private void btnAgregarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDoctorActionPerformed
         // TODO add your handling code here:
-        
-        
+        Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
+        if (e != null){
+            //pop-up para seleccionar un doctor.
+            Medico input = (Medico) JOptionPane.showInputDialog(null,"Elija un doctor: ",
+                    "Agregar doctor a Especialidad",JOptionPane.QUESTION_MESSAGE, null,
+                    this.controlador.listarDoctores().toArray(),
+                    this.controlador.listarDoctores().toArray()[1]);
+            this.controlador.agregarEspecialidadesDoctor(e, input);
+            }
+        mostrar();
     }//GEN-LAST:event_btnAgregarDoctorActionPerformed
 
     public void limpiar(){
@@ -205,7 +215,14 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
         this.comboEspecialidades.setModel(modeloCombo);
         comboEspecialidades.setSelectedIndex(-1);
-        this.listaEspecialidades.clearSelection();
+        this.listaEspecialidades.setListData(new String[0]); 
+    }
+    
+    public void mostrar(){
+        Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
+        if (e != null){
+            this.listaEspecialidades.setListData(e.getMedico().toArray()); 
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDoctor;

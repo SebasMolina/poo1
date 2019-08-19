@@ -177,6 +177,21 @@ public class Controlador {
         this.persistencia.insertar(e);
         this.persistencia.confirmarTransaccion();
     }
+    
+    public void agregarEspecialidadesDoctor(Especialidad e, Medico m) {
+        this.persistencia.iniciarTransaccion();
+        if (e!= null) {      
+        //agrego en especialidad al medico. hago de los 2 lados.
+            this.persistencia.modificar(e);
+        // si es un especialidad valido
+            this.persistencia.modificar(m);
+        //hago luego asi si salta error 
+            m.agregarEspecialidad(e);
+            e.agregarMedico(m);
+        }
+        this.persistencia.confirmarTransaccion();
+    }
+    
     public int eliminarEspecialidades(Especialidad e) {
         this.persistencia.iniciarTransaccion();
         this.persistencia.eliminar(e);
@@ -184,10 +199,11 @@ public class Controlador {
         return 0;
     }
     
-    public int eliminarEspecialidadMedico(Especialidad e, Medico m) {
+    public int eliminarEspecialidadDoctor(Especialidad e, Medico m) {
         this.persistencia.iniciarTransaccion();
         this.persistencia.eliminar(e);
         this.persistencia.confirmarTransaccion();
+    //hago abajo por si sale error
         e.quitarMedico(m);
         m.quitarEspecialidad(e);
         return 0;

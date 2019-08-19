@@ -98,7 +98,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
         lblTelefono.setText("Telefono:");
 
-        txtMail.setToolTipText("");
+        txtMail.setToolTipText("ejemplo@ejemplo.com");
 
         lblMail.setText("Mail: ");
 
@@ -108,7 +108,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
         lblCalle.setText("Calle:");
 
-        txtFechaNac.setToolTipText("");
+        txtFechaNac.setToolTipText("dd/mm/aaaa");
 
         txtNumero.setToolTipText("");
 
@@ -125,6 +125,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         lblHistorial.setText("Historial:");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.setToolTipText("limpiar pantalla");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -132,6 +133,7 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.setToolTipText("agregar paciente");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -140,9 +142,11 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
         txtHistorial.setColumns(20);
         txtHistorial.setRows(5);
+        txtHistorial.setToolTipText("pregunte cosas de interes. Por ej: si es diabético");
         jScrollPane1.setViewportView(txtHistorial);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setToolTipText("eliminar paciente");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -265,9 +269,12 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         } else {
             this.controlador.editarPaciente(this.paciente, this.txtDni.getText(),this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(), this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), this.txtHistorial.getText());
         }
+        JOptionPane.showMessageDialog(rootPane, 
+                    "El paciente se agrego de forma exitosa",
+                    "Agregar Paciente",
+                    JOptionPane.INFORMATION_MESSAGE);
         this.a.limpiar();
-        this.previo.setVisible(true);
-        this.dispose();
+        cerrar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -278,17 +285,24 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (this.paciente != null) {
-            int i = this.controlador.eliminarPaciente(this.paciente);
-            if (i != 0) {
-                JOptionPane.showMessageDialog(null, "No es posible eliminar el Paciente", "Error", JOptionPane.ERROR_MESSAGE);
+            int eleccion = JOptionPane.showConfirmDialog(rootPane, 
+                "Desea eliminar el Paciente?",
+                "Eliminar Paciente",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+            if (eleccion == JOptionPane.YES_OPTION){
+                int i = this.controlador.eliminarPaciente(this.paciente);
+                this.a.limpiar();
+                cerrar();
             }
-            this.a.limpiar();
-            this.previo.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void mostrar() {
         // limpio las cajas de texto y labels
+        this.btnLimpiar.setVisible(false);
+        this.btnAgregar.setText("Guardar cambios");
+        this.btnAgregar.setToolTipText("Editar Paciente");
+        //datos
         this.txtDni.setText(this.paciente.getDni());
         this.txtNombre.setText(this.paciente.getNombres());
         this.txtApellido.setText(this.paciente.getApellidos());
@@ -319,6 +333,10 @@ public class VentanaPacientesABM extends javax.swing.JFrame {
         this.txtHistorial.setText("");
     }
     
+    public void cerrar(){
+        this.previo.setVisible(true);
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
