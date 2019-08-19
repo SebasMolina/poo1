@@ -19,6 +19,7 @@ public class VentanaHistorias extends javax.swing.JFrame {
     private final Controlador controlador;
     private final JFrame previo;
     private Paciente paciente;
+    
 
     public VentanaHistorias(Controlador controlador, JFrame previo) {
         this.controlador = controlador;
@@ -122,8 +123,10 @@ public class VentanaHistorias extends javax.swing.JFrame {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
+        Historia h;
         if(!this.listaHistorias.isSelectionEmpty()){
-            VentanaHistoriasABM vhABM = new VentanaHistoriasABM(this.controlador, this, this.paciente);
+            h = (Historia) this.listaHistorias.getSelectedValue();
+            VentanaHistoriasABM vhABM = new VentanaHistoriasABM(this.controlador, this, this.paciente,h);
             this.setVisible(true);
             vhABM.setLocationRelativeTo(null);
             vhABM.setResizable(false);

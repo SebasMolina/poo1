@@ -23,20 +23,41 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
     private final Controlador controlador;
     private final JFrame previo;
     private Paciente paciente;
+    private Historia historia;
+    private boolean constructor;
     
     public VentanaHistoriasABM(Controlador controlador, JFrame previo, Paciente pa) {
         this.controlador = controlador;
         this.previo = previo;
         initComponents();
         this.paciente = pa;
+        this.constructor=true;
+        limpiar();
+    }
+    
+    public VentanaHistoriasABM(Controlador controlador, JFrame previo, Paciente pa, Historia h) {
+        this.controlador = controlador;
+        this.previo = previo;
+        initComponents();
+        this.paciente = pa;
+        this.historia=h;
+        this.constructor=false;
         limpiar();
     }
 
     private void limpiar() {
-        DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarDoctores().toArray());
-        this.comboMedicos.setModel(modeloComboMedicos);
-        this.comboMedicos.setSelectedIndex(-1);
-        txtDescripcion.setText("");
+        if(this.constructor){
+            DefaultComboBoxModel modeloComboMedicos = new DefaultComboBoxModel(this.controlador.listarDoctores().toArray());
+            this.comboMedicos.setModel(modeloComboMedicos);
+            this.comboMedicos.setSelectedIndex(-1);
+            txtDescripcion.setText("");
+        } else {
+            this.txtDescripcion.setText(this.historia.getDescripcion());
+            this.comboMedicos.addItem(this.historia.getMedico());
+            this.btnAgregar.setVisible(false);
+            this.btnLimpiar.setVisible(false);
+        }
+        
     }
 
     

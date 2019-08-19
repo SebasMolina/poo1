@@ -66,7 +66,7 @@ public class Historia {
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         //fomato fecha
-        return formatoFecha.format(fecha) + " - " + this.medico.getApellidos() + ' ' + this.medico.getNombres();
+        return formatoFecha.format(fecha) + " --- " + this.medico.getApellidos() + ' ' + this.medico.getNombres();
         //fecha + apellido + nombre
     }
     

@@ -12,6 +12,7 @@ public class Cita {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_citas")
     private int id;
     @ManyToOne
+    
     private Paciente paciente;
     @OneToOne
     private Medico medico;

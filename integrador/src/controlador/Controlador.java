@@ -145,8 +145,9 @@ public class Controlador {
                 m.setTiempoTurno(tiempoTurno);
                 if (especialidad!= null) {
                     m.agregarEspecialidad(especialidad);
-                    especialidad.agregarMedico(m);  //agrego en especialidad al medico. hago de los 2 lados.
-                this.persistencia.modificar(especialidad);
+                    especialidad.agregarMedico(m);  
+                //agrego en especialidad al medico. hago de los 2 lados.
+                    this.persistencia.modificar(especialidad);
                 }
                 this.persistencia.modificar(m);
                 this.persistencia.confirmarTransaccion();
@@ -169,9 +170,9 @@ public class Controlador {
     
     public void agregarEspecialidades(String nombres) {
         this.persistencia.iniciarTransaccion();
-        Especialidad p = new Especialidad(nombres.toUpperCase());
+        Especialidad e = new Especialidad(nombres.toUpperCase());
         // si es un especialidad valido
-        this.persistencia.insertar(p);
+        this.persistencia.insertar(e);
         this.persistencia.confirmarTransaccion();
     }
     public int eliminarEspecialidades(Especialidad e) {
@@ -183,12 +184,12 @@ public class Controlador {
     
     public void agregarHistoria(Paciente p, Date fecha, String descripcion, Medico m) {
         this.persistencia.iniciarTransaccion();
-        Historia h = new Historia(p, fecha, descripcion.toUpperCase(), m);
-        
-        p.agregarHistoriaClinica(h);    //agrego la historia al paciente
-        this.persistencia.modificar(p); //modifico paciente? por ahora no
-        
-        this.persistencia.insertar(h);
+        Historia historia = new Historia(p, fecha, descripcion.toUpperCase(), m);
+        p.agregarHistoriaClinica(historia);    
+        //paciente agrega su historia
+        this.persistencia.modificar(p); 
+        //modifico paciente? por ahora no
+        this.persistencia.insertar(historia);
         this.persistencia.confirmarTransaccion();
         
         
