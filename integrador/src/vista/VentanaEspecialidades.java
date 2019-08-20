@@ -83,7 +83,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
         lblEspecialidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEspecialidad.setText("Seleccione una especialidad");
 
-        btnAgregarDoctor.setText("Agregar");
+        btnAgregarDoctor.setText("Agregar Doctor");
         btnAgregarDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarDoctorActionPerformed(evt);
@@ -204,9 +204,14 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
             Medico input = (Medico) JOptionPane.showInputDialog(null,"Elija un doctor: ",
                     "Agregar doctor a Especialidad",JOptionPane.QUESTION_MESSAGE, null,
                     this.controlador.listarDoctores().toArray(),
-                    this.controlador.listarDoctores().toArray()[1]);
+                    this.controlador.listarDoctores().toArray()[0]);
             this.controlador.agregarEspecialidadesDoctor(e, input);
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, 
+                    "Debe seleccionar una especialidad",
+                    "",
+                    JOptionPane.WARNING_MESSAGE);
+        }
         mostrar();
     }//GEN-LAST:event_btnAgregarDoctorActionPerformed
 

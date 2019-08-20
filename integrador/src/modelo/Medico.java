@@ -86,5 +86,10 @@ public class Medico extends Persona {
 
     public void quitarEspecialidad(Especialidad e) {
         this.especialidad.remove(e);
-    }    
+    }
+    @Override
+    public String toString() {
+        return super.getApellidos() + ' ' + super.getNombres() + " M.N. " + numeroMatricula;
+    }
+    
 }

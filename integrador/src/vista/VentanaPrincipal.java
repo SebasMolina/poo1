@@ -32,9 +32,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_doctores = new javax.swing.JButton();
         btn_pacientes = new javax.swing.JButton();
-        btn_citas = new javax.swing.JButton();
+        btn_turnos = new javax.swing.JButton();
         btn_especialidades = new javax.swing.JButton();
         btn_historias = new javax.swing.JButton();
+        btn_citas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Ventana Principal");
@@ -47,6 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btn_doctores.setText("Doctores");
+        btn_doctores.setToolTipText("abm de doctores");
         btn_doctores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_doctoresActionPerformed(evt);
@@ -54,20 +56,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btn_pacientes.setText("Pacientes");
+        btn_pacientes.setToolTipText("abm de pacientes");
         btn_pacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_pacientesActionPerformed(evt);
             }
         });
 
-        btn_citas.setText("Citas");
-        btn_citas.addActionListener(new java.awt.event.ActionListener() {
+        btn_turnos.setText("Turnos");
+        btn_turnos.setToolTipText("listado de los turnos de los doctores");
+        btn_turnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_citasActionPerformed(evt);
+                btn_turnosActionPerformed(evt);
             }
         });
 
         btn_especialidades.setText("Especialidades");
+        btn_especialidades.setToolTipText("listado doctores por especialidade");
         btn_especialidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_especialidadesActionPerformed(evt);
@@ -75,9 +80,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btn_historias.setText("Historias Clinicas");
+        btn_historias.setToolTipText("historias clinicas por paciente");
         btn_historias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_historiasActionPerformed(evt);
+            }
+        });
+
+        btn_citas.setText("Citas");
+        btn_citas.setToolTipText("mensaje de la cita futura");
+        btn_citas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_citasActionPerformed(evt);
             }
         });
 
@@ -88,11 +102,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_citas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_turnos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_pacientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                     .addComponent(btn_doctores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_especialidades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_historias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_historias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_citas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -103,12 +118,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_pacientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_citas)
+                .addComponent(btn_turnos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_especialidades)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_historias)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_citas)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,14 +166,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vp.setVisible(true);
     }//GEN-LAST:event_btn_pacientesActionPerformed
 
-    private void btn_citasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_citasActionPerformed
+    private void btn_turnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_turnosActionPerformed
         // TODO add your handling code here:
-        VentanaCitas vc = new VentanaCitas(this.controlador, this);
+        VentanaTurnos vc = new VentanaTurnos(this.controlador, this);
         this.setVisible(true);
         vc.setLocationRelativeTo(null);
         vc.setResizable(false);
         vc.setVisible(true);
-    }//GEN-LAST:event_btn_citasActionPerformed
+    }//GEN-LAST:event_btn_turnosActionPerformed
 
     private void btn_especialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_especialidadesActionPerformed
         VentanaEspecialidades ve = new VentanaEspecialidades(this.controlador, this);
@@ -180,6 +197,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         cerrar();
     }//GEN-LAST:event_formWindowClosing
+
+    private void btn_citasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_citasActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_citasActionPerformed
     
     public void cerrar() {
         /*
@@ -201,6 +223,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_especialidades;
     private javax.swing.JButton btn_historias;
     private javax.swing.JButton btn_pacientes;
+    private javax.swing.JButton btn_turnos;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

@@ -14,7 +14,7 @@ public class Historia {
     private int id;
     @ManyToOne
     private Paciente pacienteH;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha;
     private String descripcion;
     @OneToOne
@@ -50,7 +50,7 @@ public class Historia {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-
+    
     public Historia() {
                 
     }

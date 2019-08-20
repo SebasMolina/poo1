@@ -49,8 +49,10 @@ public class Controlador {
             this.persistencia.insertar(p);
             this.persistencia.confirmarTransaccion();
         } catch (ParseException ex) {
+            /*
             this.persistencia.descartarTransaccion();
             System.out.println("Error al capturar fecha");
+            */
         }
     }
     
@@ -227,6 +229,12 @@ public class Controlador {
         this.persistencia.confirmarTransaccion();
         return 0;
     }
+    
+    public List listarCitas() {
+        // retorno valores ordenados de la consulta
+        return this.persistencia.buscarTodos(Cita.class);
+    }
+    
 /*
     public List listarEmpleados() {
         // retorno valores ordenados de la consulta

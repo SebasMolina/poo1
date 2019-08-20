@@ -59,11 +59,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btn_citas" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btn_turnos" alignment="1" max="32767" attributes="0"/>
                       <Component id="btn_pacientes" alignment="1" pref="252" max="32767" attributes="0"/>
                       <Component id="btn_doctores" alignment="1" max="32767" attributes="0"/>
                       <Component id="btn_especialidades" alignment="1" max="32767" attributes="0"/>
                       <Component id="btn_historias" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_citas" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -77,12 +78,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_pacientes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_citas" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_turnos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_especialidades" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_historias" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="105" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btn_citas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -91,6 +94,7 @@
         <Component class="javax.swing.JButton" name="btn_doctores">
           <Properties>
             <Property name="text" type="java.lang.String" value="Doctores"/>
+            <Property name="toolTipText" type="java.lang.String" value="abm de doctores"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_doctoresActionPerformed"/>
@@ -99,22 +103,25 @@
         <Component class="javax.swing.JButton" name="btn_pacientes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pacientes"/>
+            <Property name="toolTipText" type="java.lang.String" value="abm de pacientes"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_pacientesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_citas">
+        <Component class="javax.swing.JButton" name="btn_turnos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Citas"/>
+            <Property name="text" type="java.lang.String" value="Turnos"/>
+            <Property name="toolTipText" type="java.lang.String" value="listado de los turnos de los doctores"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_citasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_turnosActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_especialidades">
           <Properties>
             <Property name="text" type="java.lang.String" value="Especialidades"/>
+            <Property name="toolTipText" type="java.lang.String" value="listado doctores por especialidade"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_especialidadesActionPerformed"/>
@@ -123,9 +130,19 @@
         <Component class="javax.swing.JButton" name="btn_historias">
           <Properties>
             <Property name="text" type="java.lang.String" value="Historias Clinicas"/>
+            <Property name="toolTipText" type="java.lang.String" value="historias clinicas por paciente"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_historiasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_citas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Citas"/>
+            <Property name="toolTipText" type="java.lang.String" value="mensaje de la cita futura"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_citasActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
