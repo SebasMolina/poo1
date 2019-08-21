@@ -59,7 +59,7 @@ public class Controlador {
     public List listarPacientes() {
         // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Paciente.class);
-        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellidos);
+        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellido);
     }
     
     public Persona buscarPaciente(Long id) {
@@ -97,11 +97,15 @@ public class Controlador {
         return 0;
     }
     
-    public void agregarDoctor(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void agregarDoctor(String dni, String matricula, Date horaComienza, Date horaTermina, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         this.persistencia.iniciarTransaccion();
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            Medico m = new Medico(dni,matricula.toUpperCase(),horaComienza.toUpperCase(),horaTermina.toUpperCase(),nombres.toUpperCase(),apellidos.toUpperCase(), telefono, mail, formatoFecha.parse(fechaNacimiento),calle.toUpperCase(), numero, localidad.toUpperCase(), provincia.toUpperCase(), especialidad, tiempoTurno);
+            Medico m = new Medico(dni,matricula.toUpperCase(),
+                    horaComienza,horaTermina,
+                    nombres.toUpperCase(),apellidos.toUpperCase(), telefono, mail,
+                    formatoFecha.parse(fechaNacimiento),calle.toUpperCase(), numero,
+                    localidad.toUpperCase(), provincia.toUpperCase(), especialidad, tiempoTurno);
             // si es un departamento valido
             if (especialidad != null) {
                 m.agregarEspecialidad(especialidad); //agrego al medico la especialidad y en la base de datos
@@ -125,7 +129,7 @@ public class Controlador {
         return this.persistencia.buscar(Persona.class, id);
     }
     
-    public void editarDoctor(Medico m, String dni, String matricula, String horarioInicio, String horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public void editarDoctor(Medico m, String dni, String matricula, Date horarioInicio, Date horarioFinal, String nombres, String apellidos, String telefono, String mail, String fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         if (m != null) {
             this.persistencia.iniciarTransaccion();
             try {
@@ -231,9 +235,24 @@ public class Controlador {
     }
     
     public List listarCitas() {
-        // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Cita.class);
     }
+    
+    public void agregarCita(Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
+        this.persistencia.iniciarTransaccion();
+        Cita c = new Cita(p,m,horaComienzo,horaTermina,disponible);
+        this.persistencia.insertar(c);
+        this.persistencia.confirmarTransaccion();
+    }
+    //se usa para crear
+    public void agregarCita(Medico m, Date horaComienzo, Date horaTermina){
+        this.persistencia.iniciarTransaccion();
+        Cita c = new Cita(horaComienzo,horaTermina, true);
+        c.setMedico(m);
+        this.persistencia.insertar(c);
+        this.persistencia.confirmarTransaccion();
+    }
+
     
 /*
     public List listarEmpleados() {

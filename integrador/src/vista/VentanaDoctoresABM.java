@@ -6,7 +6,10 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -318,17 +321,38 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         // modifico
-        if(this.constructor){
-            this.controlador.agregarDoctor(this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
-        } else {
-            this.controlador.editarDoctor(this.medico, this.txtDni.getText(), this.txtMatricula.getText(), this.txtComienza.getText(), this.txtTermina.getText(), this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(), this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(), (Especialidad) this.comboEspecialidades.getSelectedItem(), Integer.parseInt(this.txtTiempoTurno.getText()));
-        } 
-        JOptionPane.showMessageDialog(rootPane, 
-                    "El doctor se agrego de forma exitosa",
-                    "Agregar Doctor",
-                    JOptionPane.INFORMATION_MESSAGE);
-        this.a.limpiar(); //actualiza lista de pacientes
-        cerrar();
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        String auxHoraComienza  = this.txtComienza.getText();
+        String auxHoraTermina   = this.txtTermina.getText();
+        try {
+            if(this.constructor){
+                this.controlador.agregarDoctor(
+                    this.txtDni.getText(), this.txtMatricula.getText(),
+                    formatoHora.parse(auxHoraComienza), formatoHora.parse(auxHoraTermina),
+                    this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),
+                    this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(),
+                    this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(),
+                    (Especialidad) this.comboEspecialidades.getSelectedItem(),
+                    Integer.parseInt(this.txtTiempoTurno.getText()));
+            } else {
+                this.controlador.editarDoctor(
+                    this.medico, this.txtDni.getText(), this.txtMatricula.getText(),
+                    formatoHora.parse(auxHoraComienza), formatoHora.parse(auxHoraTermina),
+                    this.txtNombre.getText(), this.txtApellido.getText(), this.txtTelefono.getText(),
+                    this.txtMail.getText(), this.txtFechaNac.getText(), this.txtCalle.getText(),
+                    this.txtNumero.getText(), this.txtLocalidad.getText(), this.txtProvincia.getText(),
+                    (Especialidad) this.comboEspecialidades.getSelectedItem(),
+                    Integer.parseInt(this.txtTiempoTurno.getText()));
+            } 
+            JOptionPane.showMessageDialog(rootPane, 
+                        "El doctor se agrego de forma exitosa",
+                        "Agregar Doctor",
+                        JOptionPane.INFORMATION_MESSAGE);
+            this.a.limpiar(); //actualiza lista de pacientes
+            cerrar();
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaDoctoresABM.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void mostrar() {
@@ -336,8 +360,8 @@ public class VentanaDoctoresABM extends javax.swing.JFrame {
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         this.txtDni.setText(this.medico.getDni());
         this.txtMatricula.setText(this.medico.getNumeroMatricula());
-        this.txtComienza.setText(this.medico.getHorarioInicio());
-        this.txtTermina.setText(this.medico.getHorarioFinal());
+        this.txtComienza.setText(String.valueOf(this.medico.getHorarioInicio().getHours())+":00");
+        this.txtTermina.setText(String.valueOf(this.medico.getHorarioFinal().getHours())+":00");
         this.txtNombre.setText(this.medico.getNombres());
         this.txtApellido.setText(this.medico.getApellidos());
         this.txtTelefono.setText(this.medico.getTelefono());

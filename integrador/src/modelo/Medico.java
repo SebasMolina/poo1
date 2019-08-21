@@ -14,17 +14,17 @@ public class Medico extends Persona {
     private String numeroMatricula;
     @ManyToMany
     private List<Especialidad> especialidad;
-    //@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private String horarioInicio;
-    //@Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private String horarioFinal;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date horarioInicio;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date horarioFinal;
     private int tiempoTurno;
 
     public Medico() {
         this.especialidad = new ArrayList<>();
     }
     
-    public Medico(String dni, String matricula, String horaComienza, String horaTermina, String nombres, String apellidos, String telefono, String mail, Date fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
+    public Medico(String dni, String matricula, Date horaComienza, Date horaTermina, String nombres, String apellidos, String telefono, String mail, Date fechaNacimiento, String calle, String numero, String localidad, String provincia, Especialidad especialidad, int tiempoTurno) {
         super.setDni(dni);
         this.numeroMatricula = matricula;
         this.horarioInicio = horaComienza;
@@ -56,19 +56,19 @@ public class Medico extends Persona {
         this.especialidad = especialidad;
     }
 
-    public String getHorarioInicio() {
+    public Date getHorarioInicio() {
         return horarioInicio;
     }
 
-    public void setHorarioInicio(String horarioInicio) {
+    public void setHorarioInicio(Date horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
 
-    public String getHorarioFinal() {
+    public Date getHorarioFinal() {
         return horarioFinal;
     }
 
-    public void setHorarioFinal(String horarioFinal) {
+    public void setHorarioFinal(Date horarioFinal) {
         this.horarioFinal = horarioFinal;
     }
 

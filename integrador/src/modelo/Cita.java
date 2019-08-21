@@ -81,6 +81,27 @@ public class Cita {
         this.asistencia = asistencia;
     }
 
+    public Cita() {
+    }
+
+    public Cita(Paciente paciente, Medico medico, Date horaComienzo, Date horaTermina, boolean disponible) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.horaComienzo = horaComienzo;
+        this.horaTermina = horaTermina;
+        this.disponible = disponible;
+    }
+
+    public Cita(Date horaComienzo, Date horaTermina, boolean disponible) {
+        this.horaComienzo = horaComienzo;
+        this.horaTermina = horaTermina;
+        this.disponible = disponible;
+    }
+    
+    
+
+    
+    
     @Override
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");

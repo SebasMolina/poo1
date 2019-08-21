@@ -8,6 +8,7 @@ package vista;
 import controlador.Controlador;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.*;
 
 /**
@@ -27,11 +28,12 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         limpiar();
     }
     
-    public VentanaTurnosABM(Controlador c, JFrame p, Medico m, Cita ci) {
+    public VentanaTurnosABM(Controlador c, JFrame p, Cita ci) {
         initComponents();
         this.controlador = c;
         this.previo = p;
-        this.medico = m;
+        
+        //this.medico = m; no va por que ya esta en parametro ci
         limpiar();
     }
 
@@ -140,6 +142,14 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         //aca guardar cambios 
+        if (this.comboPaciente.getSelectedIndex()!= -1){
+            JOptionPane.showMessageDialog(rootPane, 
+                        "El turno se agrego de forma exitosa",
+                        "Agregar Turno",
+                        JOptionPane.INFORMATION_MESSAGE);
+            //agregar a la cita el paciente
+            
+        }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -162,6 +172,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         
     }
 
+    //cerrar ventana
     private void cerrar(){
         this.previo.setVisible(true);
         this.dispose();

@@ -6,9 +6,9 @@
 package vista;
 
 import controlador.Controlador;
-import java.util.Calendar;
+import java.sql.Array;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,7 +18,6 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
     private final Controlador controlador;
     private final JFrame previo;
-    private Medico medico;
     private Cita cita;
     
     public VentanaTurnos(Controlador c, JFrame p) {
@@ -38,7 +37,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         comboEspecialidad = new javax.swing.JComboBox<>();
         lblEspecialidad = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaTurnos = new javax.swing.JList<>();
+        listaTurnos = new javax.swing.JList();
         dateSeleccion = new rojeru_san.componentes.RSDateChooser();
         comboDoctores = new javax.swing.JComboBox<>();
         lblDoctores = new javax.swing.JLabel();
@@ -144,7 +143,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
     private void btnSeleccionarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarTurnoActionPerformed
         // TODO add your handling code here:
-        VentanaTurnosABM vcABM = new VentanaTurnosABM(this.controlador, this, this.medico,this.cita);
+        VentanaTurnosABM vcABM = new VentanaTurnosABM(this.controlador, this, this.cita);
         this.setVisible(true);
         vcABM.setLocationRelativeTo(null);
         vcABM.setResizable(false);
@@ -160,9 +159,9 @@ public class VentanaTurnos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Medico m = (Medico) comboDoctores.getSelectedItem();
         if (m != null){
-            this.medico =m;
+            this.cita.setMedico(m); //agrego medico
             //aca va la parte de la lista de turnos
-            crear();//? ver el evento del calendario
+            ver();//? ver el evento del calendario
         } else {
             //muy pesado es este cuadro
             //JOptionPane.showMessageDialog(rootPane, "Seleccione un Doctor para ver los turnos","", JOptionPane.WARNING_MESSAGE);
@@ -174,7 +173,8 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private void dateSeleccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateSeleccionMouseClicked
         // TODO add your handling code here:
         //Ver las citas del dia seleccionado y del doctor seleccionado
-        //crear(); //no iria aca seria el metodo verCitas()
+        //crear(); //no iria aca seria el metodo crear()
+        
     }//GEN-LAST:event_dateSeleccionMouseClicked
 
     private void limpiar(){
@@ -218,6 +218,27 @@ public class VentanaTurnos extends javax.swing.JFrame {
 		return calendar.getTime();
 	}
         */
+        //cuando entro en la ventana comparo el dia de hoy
+        //todos los medicos
+        Medico [] listaMedicos =  (Medico[]) this.controlador.listarDoctores().toArray();
+        //sacar el horario de cada medico
+        Date auxComienza, auxTermina;
+        Medico elementoMedico;
+        for (int i=0;i <= listaMedicos.length;i++){
+            elementoMedico = listaMedicos[i];
+            
+        }
+        
+        
+    }
+    
+    private void ver(){
+        //ver las citas del doctor seleccionado y del dia SELECCIONADO
+        Cita elemento = new Cita();
+        List listaCitas;
+        listaCitas = this.controlador.listarCitas();
+        this.listaTurnos.setListData(this.controlador.listarCitas().toArray());
+        //saltara error si no cambias en las propiedades el string[] del jlist
         
         
     }
@@ -231,6 +252,6 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private javax.swing.JLabel lblDoctores;
     private javax.swing.JLabel lblEspecialidad;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JList<String> listaTurnos;
+    private javax.swing.JList listaTurnos;
     // End of variables declaration//GEN-END:variables
 }
