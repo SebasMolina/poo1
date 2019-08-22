@@ -32,8 +32,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         initComponents();
         this.controlador = c;
         this.previo = p;
-        
-        //this.medico = m; no va por que ya esta en parametro ci
+        this.medico = ci.getMedico();
         limpiar();
     }
 

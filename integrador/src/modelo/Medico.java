@@ -89,7 +89,8 @@ public class Medico extends Persona {
     }
     @Override
     public String toString() {
-        return super.getApellidos() + ' ' + super.getNombres() + " M.N. " + numeroMatricula;
+        //agregamos                                              M.N al string o no?
+        return super.getApellidos() + ' ' + super.getNombres() + " " + numeroMatricula;
     }
     
 }

@@ -11,9 +11,8 @@ public class Cita {
     @Id
     @SequenceGenerator(name="sec_citas",initialValue=1,allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_citas")
-    private int id;
+    private int id; //ver para cambiar a long -> demasiados turnos
     @ManyToOne
-    
     private Paciente paciente;
     @OneToOne
     private Medico medico;
@@ -97,11 +96,6 @@ public class Cita {
         this.horaTermina = horaTermina;
         this.disponible = disponible;
     }
-    
-    
-
-    
-    
     @Override
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
@@ -111,9 +105,8 @@ public class Cita {
         if(this.disponible) {aux = "disponible" ;}
         else                {aux = "ocupado"    ;}
         return  formatoFecha.format(horaComienzo) + "-" + 
-                formatoFecha.format(horaTermina) + " " + disponible;
+                formatoFecha.format(horaTermina) + " " + aux + 
+                " " +this.getMedico();
     }
-    
-    
     
 }

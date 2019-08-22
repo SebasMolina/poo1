@@ -8,6 +8,7 @@ package controlador;
 import dao.Persistencia;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import modelo.*;
@@ -234,182 +235,82 @@ public class Controlador {
         return 0;
     }
     
-    public List listarCitas() {
-        return this.persistencia.buscarTodos(Cita.class);
+    public List listarTurnos() {
+        return this.persistencia.buscarTodosOrdenadosPor(Cita.class,Cita_.medico);
     }
     
-    public void agregarCita(Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
+    public Object[] listarTurnos(Medico m, Object[] turnos){
+    //entra un medico y las citas del dia. tengo que sacar solo las del medico
+        ArrayList<Cita> listaResultante = new ArrayList<>();
+        Cita aux;
+        for(int i=0;i<turnos.length;i++){
+            aux = (Cita)turnos[i];
+            if(m==aux.getMedico()){
+                listaResultante.add(aux);
+            } else {
+                //break;
+            }
+        }
+        return listaResultante.toArray();
+    }
+    
+    public Object[] listarTurnos(Date d){
+                                                                                                   //Cita_.horaComienzo
+        ArrayList<Cita> lista= new ArrayList<>(this.persistencia.buscarTodosOrdenadosPor(Cita.class, Cita_.medico));
+        ArrayList<Cita> listaResultante = new ArrayList<>();
+        Cita aux;
+        //todas las citas de ese doctor van a estar al principio de la lista.
+        for(int i=0;i<lista.size();i++){
+            aux = lista.get(i);
+            if(d.getDay()==aux.getHoraComienzo().getDay()){
+                listaResultante.add(aux);
+            }
+            
+        }
+        return listaResultante.toArray();
+    }
+    
+    public Object[] listarTurnos(Paciente p){
+        ArrayList<Cita> lista= new ArrayList<>(this.persistencia.buscarTodosOrdenadosPor(Cita.class, Cita_.paciente));
+        ArrayList<Cita> listaResultante = new ArrayList<>();
+        Cita aux;
+        //todas las citas de ese doctor van a estar al principio de la lista.
+        for(int i=0;i<lista.size();i++){
+            aux = lista.get(i);
+            if(p==aux.getPaciente()){
+                listaResultante.add(aux);
+            } else {
+                //break;
+            }
+        }
+        return listaResultante.toArray();
+        
+    }
+    
+    public void agregarTurno(Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
         this.persistencia.iniciarTransaccion();
         Cita c = new Cita(p,m,horaComienzo,horaTermina,disponible);
         this.persistencia.insertar(c);
         this.persistencia.confirmarTransaccion();
     }
-    //se usa para crear
-    public void agregarCita(Medico m, Date horaComienzo, Date horaTermina){
+    //se usa para crear vacio
+    public void agregarTurno(Medico m, Date horaComienzo, Date horaTermina){
         this.persistencia.iniciarTransaccion();
         Cita c = new Cita(horaComienzo,horaTermina, true);
         c.setMedico(m);
         this.persistencia.insertar(c);
         this.persistencia.confirmarTransaccion();
     }
-
     
-/*
-    public List listarEmpleados() {
-        // retorno valores ordenados de la consulta
-        return this.persistencia.buscarTodosOrdenadosPor(Empleado.class, Empleado_.apellidos);
-    }
-
-    public Empleado buscarEmpleado(Long id) {
-        return this.persistencia.buscar(Empleado.class, id);
-    }
-
-    
-
-    public void editarEmpleado(Empleado e, String nombres, String apellidos, String fechaIngreso, String calle, String numero, String localidad, String provincia, Departamento departamento) {
-        if (e != null) {
-            this.persistencia.iniciarTransaccion();
-            try {
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                e.setNombres(nombres.toUpperCase());
-                e.setApellidos(apellidos.toUpperCase());
-                e.setFechaIngreso(formatoFecha.parse(fechaIngreso));
-                Direccion d = e.getDireccion();
-                d.setCalle(calle.toUpperCase());
-                d.setNumero(numero.toUpperCase());
-                d.setLocalidad(localidad.toUpperCase());
-                d.setProvincia(provincia.toUpperCase());
-                // relacion bidireccional
-                // quito empleado de su departamento original
-                if (e.getDepartamento() != null) {
-                    Departamento departamentoViejo = e.getDepartamento();
-                    departamentoViejo.eliminarEmpleado(e);
-                    this.persistencia.modificar(departamentoViejo);
-                }                
-                // cambio a nuevo departamento
-                e.setDepartamento(departamento);
-                // agrego a nuevo departamento
-                departamento.agregarEmpleado(e);
-                this.persistencia.modificar(e);
-                this.persistencia.modificar(departamento);                
-                this.persistencia.confirmarTransaccion();
-            } catch (ParseException ex) {
-                this.persistencia.descartarTransaccion();
-            }
-        }
-    }
-
-    public int eliminarEmpleado(Empleado e) {
-        if (e.getProyectos().isEmpty()) {
-            this.persistencia.iniciarTransaccion();
-            Departamento d = e.getDepartamento();
-            d.eliminarEmpleado(e);
-            e.setDepartamento(null);
-            this.persistencia.eliminar(e);
-            this.persistencia.modificar(d);
-            this.persistencia.confirmarTransaccion();
-            return 0;
-        } else {
-            return 1;
-        }
-        // que pasa con un empleado que es gerente?
-        // no debo manejar esa parte de la relacion para eliminar un empleado?
-    }
-
-    public List listarProyectos() {
-        return this.persistencia.buscarTodos(Proyecto.class);
-    }
-
-    public Proyecto buscarProyecto(Long id) {
-        return this.persistencia.buscar(Proyecto.class, id);
-    }
-
-    public void agregarProyecto(String descripcion) {
+    public void editarCita(Cita c, Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
         this.persistencia.iniciarTransaccion();
-        Proyecto p = new Proyecto(descripcion.toUpperCase());
-        this.persistencia.insertar(p);
+        c.setPaciente(p);
+        c.setMedico(m);
+        c.setHoraComienzo(horaComienzo);
+        c.setHoraTermina(horaTermina);
+        c.setDisponible(disponible);
+        
+        this.persistencia.modificar(c);
         this.persistencia.confirmarTransaccion();
     }
-
-    public void editarProyecto(Proyecto p, String descripcion) {
-        this.persistencia.iniciarTransaccion();
-        p.setDescripcion(descripcion);
-        this.persistencia.modificar(p);
-        this.persistencia.confirmarTransaccion();
-    }
-    
-    public int eliminarProyecto(Proyecto p) {
-        if (p.getEmpleados().isEmpty()) {
-            this.persistencia.iniciarTransaccion();
-            this.persistencia.eliminar(p);
-            this.persistencia.confirmarTransaccion();
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    public void cancelarProyecto(Proyecto p) {
-        this.persistencia.iniciarTransaccion();
-        p.setFechaBaja(new Date());
-        this.persistencia.modificar(p);
-        this.persistencia.confirmarTransaccion();
-    }
-
-    public void agregarEmpleadoProyecto(Proyecto p, Empleado e) {
-        // como uso un set no necesito controlar por duplicados
-        // recuerden que set no permite duplicados
-        this.persistencia.iniciarTransaccion();
-        p.agregarEmpleado(e);
-        this.persistencia.modificar(e);
-        this.persistencia.modificar(p);
-        this.persistencia.confirmarTransaccion();
-    }
-
-    public void quitarEmpleadoProyecto(Proyecto p, Empleado e) {
-        this.persistencia.iniciarTransaccion();
-        p.quitarEmpleado(e);
-        this.persistencia.modificar(e);
-        this.persistencia.modificar(p);
-        this.persistencia.confirmarTransaccion();
-    }
-    
-    public List listarDepartamentos() {
-        //return this.persistencia.buscarTodos(Departamento.class);
-        return this.persistencia.buscarTodosOrdenadosPor(Departamento.class, Departamento_.denominacion);
-    }
-
-    public Departamento buscarDepartamento(Long id) {
-        return this.persistencia.buscar(Departamento.class, id);
-    }
-
-    public void agregarDepartamento(String denominacion, Empleado gerente) {
-        this.persistencia.iniciarTransaccion();
-        Departamento d = new Departamento(denominacion.toUpperCase(), gerente);
-        this.persistencia.insertar(d);
-        this.persistencia.confirmarTransaccion();
-    }
-    
-    public void editarDepartamento(Departamento d, String denominacion, Empleado gerente) {
-        this.persistencia.iniciarTransaccion();
-        d.setDenominacion(denominacion.toUpperCase());
-        d.setGerente(gerente);
-        this.persistencia.modificar(d);
-        this.persistencia.confirmarTransaccion();
-    }
-    
-    public int eliminarDepartamento(Departamento p) {
-        // elimino si no existen empleados en el departamento
-        if (p.getEmpleados().isEmpty()) {
-            this.persistencia.iniciarTransaccion();
-            this.persistencia.eliminar(p);
-            this.persistencia.confirmarTransaccion();
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-    
-    */
-    
 }
