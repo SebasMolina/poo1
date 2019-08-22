@@ -178,7 +178,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         if (e!=null){
             verTurnosDia(dateSeleccion.getDatoFecha());
         } else {
-            deshabilitarBoton();
+            deshabilitarBotonCrear();
         }
     }//GEN-LAST:event_comboEspecialidadItemStateChanged
 
@@ -186,10 +186,12 @@ public class VentanaTurnos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Medico m = (Medico) comboDoctores.getSelectedItem();
         if (m!=null){
+            btnSeleccionarTurno.setEnabled(true);
             this.cita.setMedico(m);
             verTurnosDoctor(m);
         } else {
-            deshabilitarBoton();
+            deshabilitarBotonCrear();
+            btnSeleccionarTurno.setEnabled(false);
             this.listaTurnos.setListData(new String[0]);    //limpia la lista
         }
         
@@ -219,6 +221,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         this.comboDoctores.setSelectedIndex(-1);
         this.dateSeleccion.setFormatoFecha("dd/MM/yyyy");
         this.dateSeleccion.setDatoFecha(new Date());
+        btnSeleccionarTurno.setEnabled(false);
     }
     
     public void mostrarDoctor(){
@@ -231,11 +234,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         
     }
 
-    private void habilitarBoton(){
-        this.btnCrear.setEnabled(true);
-    }
-    
-    private void deshabilitarBoton(){
+    private void deshabilitarBotonCrear(){
         this.btnCrear.setEnabled(false);
     }
     
@@ -255,7 +254,8 @@ public class VentanaTurnos extends javax.swing.JFrame {
         Object[] aux = this.controlador.listarTurnos(m, this.listaTurnosDia);
         this.listaTurnos.setListData(aux);
         if (aux.length==0){
-            habilitarBoton();
+            this.btnCrear.setEnabled(true);
+            this.btnSeleccionarTurno.setEnabled(false); //no hay turnos no esta habilitado
         }
         
     }

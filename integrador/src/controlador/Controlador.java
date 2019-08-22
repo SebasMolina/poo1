@@ -287,12 +287,6 @@ public class Controlador {
         
     }
     
-    public void agregarTurno(Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
-        this.persistencia.iniciarTransaccion();
-        Cita c = new Cita(p,m,horaComienzo,horaTermina,disponible);
-        this.persistencia.insertar(c);
-        this.persistencia.confirmarTransaccion();
-    }
     //se usa para crear vacio
     public void agregarTurno(Medico m, Date horaComienzo, Date horaTermina){
         this.persistencia.iniciarTransaccion();
@@ -302,15 +296,12 @@ public class Controlador {
         this.persistencia.confirmarTransaccion();
     }
     
-    public void editarCita(Cita c, Paciente p, Medico m, Date horaComienzo, Date horaTermina, boolean disponible) {
+    public void editarTurno(Cita c) {
         this.persistencia.iniciarTransaccion();
-        c.setPaciente(p);
-        c.setMedico(m);
-        c.setHoraComienzo(horaComienzo);
-        c.setHoraTermina(horaTermina);
-        c.setDisponible(disponible);
-        
         this.persistencia.modificar(c);
+        //agrego la cita al perfil del paciente
+        c.getPaciente().agregarCitas(c);
+        this.persistencia.modificar(c.getPaciente());
         this.persistencia.confirmarTransaccion();
     }
 }

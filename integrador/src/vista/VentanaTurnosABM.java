@@ -19,7 +19,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
     
     private final Controlador controlador;
     private final JFrame previo;
-    private Medico medico;
+    private Cita cita;
 
     public VentanaTurnosABM(Controlador c, JFrame p) {
         initComponents();
@@ -32,7 +32,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         initComponents();
         this.controlador = c;
         this.previo = p;
-        this.medico = ci.getMedico();
+        this.cita = ci;
         limpiar();
     }
 
@@ -141,15 +141,18 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         //aca guardar cambios 
+        this.cita.setDisponible(false);
+        this.cita.setPaciente((Paciente)this.comboPaciente.getSelectedItem());
         if (this.comboPaciente.getSelectedIndex()!= -1){
             JOptionPane.showMessageDialog(rootPane, 
                         "El turno se agrego de forma exitosa",
                         "Agregar Turno",
                         JOptionPane.INFORMATION_MESSAGE);
-            //agregar a la cita el paciente
+        //agregar el paciente a la cita
+            this.controlador.editarTurno(this.cita);
             
         }
-        
+        cerrar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -161,13 +164,14 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         
         DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
         this.comboPaciente.setModel(modeloComboPacientes);
-
-        this.comboMedico.addItem(this.medico);
-        
+        this.comboMedico.addItem(this.cita.getMedico());
         this.comboPaciente.setSelectedIndex(-1);
         //las horas saco de la lista que seleccione
-        this.lblHoraComienza.setText("");
-        this.lblHoraTermina.setText("");
+        //formateo la hora para que quede lindo
+        this.lblHoraComienza.setText(String.valueOf(this.cita.getHoraComienzo().getHours())+
+        ":"+String.valueOf(this.cita.getHoraComienzo().getMinutes()));
+        this.lblHoraTermina.setText(String.valueOf(this.cita.getHoraTermina().getHours())+
+        ":"+String.valueOf(this.cita.getHoraTermina().getMinutes()));
         
     }
 
