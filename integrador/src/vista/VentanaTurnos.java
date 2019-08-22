@@ -200,9 +200,13 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
+        Medico m = (Medico)comboDoctores.getSelectedItem();
         if(comboEspecialidad.getSelectedIndex()!=-1 && comboDoctores.getSelectedIndex()!=-1){
             crearTurnos();
+            btnSeleccionarTurno.setEnabled(true);
+            verTurnosDoctor(m);
         }
+        
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnSeleccionarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFechaActionPerformed
@@ -211,6 +215,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         mostrarDoctor();
         if (e!=null){
             verTurnosDia(dateSeleccion.getDatoFecha());
+            deshabilitarBotonCrear();
         }   
     }//GEN-LAST:event_btnSeleccionarFechaActionPerformed
 
@@ -262,24 +267,27 @@ public class VentanaTurnos extends javax.swing.JFrame {
     
     private void crearTurnos(){
     //ya tengo seleccionado el doctor y voy a crear citas vacias para ese doctor
-        Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
-        Calendar aux = Calendar.getInstance();//instancia para horatermina 
-        dia.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
-System.out.println();
-        dia.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
-        dia.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes());
-        aux.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
-        aux.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
-        aux.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes()+this.cita.getMedico().getTiempoTurno());
-        int rango = (this.cita.getMedico().getHorarioFinal().getHours()
-                    -this.cita.getMedico().getHorarioInicio().getHours())*60;
-        int cantTurnosDia = rango/this.cita.getMedico().getTiempoTurno();
-        for (int i=1;i<=cantTurnosDia;i++){
-            this.controlador.agregarTurno(this.cita.getMedico(), dia.getTime(), aux.getTime());
-            aux.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
-            dia.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+    Date a = new Date();
+        if((dateSeleccion.getDatoFecha()).getDay()>= a.getDay()){
+            Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
+            Calendar aux = Calendar.getInstance();//instancia para horatermina 
+            dia.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
+
+            dia.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
+            dia.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes());
+            aux.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
+            aux.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
+            aux.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes()+this.cita.getMedico().getTiempoTurno());
+            int rango = (this.cita.getMedico().getHorarioFinal().getHours()
+                        -this.cita.getMedico().getHorarioInicio().getHours())*60;
+            int cantTurnosDia = rango/this.cita.getMedico().getTiempoTurno();
+            for (int i=1;i<=cantTurnosDia;i++){
+                this.controlador.agregarTurno(this.cita.getMedico(), dia.getTime(), aux.getTime());
+                aux.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+                dia.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+            }
+        //se pueden crear duplicados
         }
-    //se pueden crear duplicados
     }
 
     

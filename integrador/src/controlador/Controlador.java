@@ -274,7 +274,7 @@ public class Controlador {
         ArrayList<Cita> lista= new ArrayList<>(this.persistencia.buscarTodosOrdenadosPor(Cita.class, Cita_.paciente));
         ArrayList<Cita> listaResultante = new ArrayList<>();
         Cita aux;
-        //todas las citas de ese doctor van a estar al principio de la lista.
+
         for(int i=0;i<lista.size();i++){
             aux = lista.get(i);
             if(p==aux.getPaciente()){

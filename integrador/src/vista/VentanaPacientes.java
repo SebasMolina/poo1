@@ -34,6 +34,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         this.listaPacientes.setListData(this.controlador.listarPacientes().toArray());        
         // deselecciono la lista
         this.listaPacientes.clearSelection();
+        this.btn_ver.setEnabled(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,6 +46,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         lbl_titulo_lista = new javax.swing.JLabel();
         btn_agregar = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
+        btn_ver = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -82,6 +84,13 @@ public class VentanaPacientes extends javax.swing.JFrame {
             }
         });
 
+        btn_ver.setText("Ver Turnos");
+        btn_ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_verActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,6 +107,10 @@ public class VentanaPacientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(btn_ver)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +123,9 @@ public class VentanaPacientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_agregar)
                     .addComponent(btn_editar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_ver)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +152,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // verificamos que la lista tenga un item seleccionado
         if (!this.listaPacientes.isSelectionEmpty()) {
             this.paciente = (Paciente) this.listaPacientes.getSelectedValue();
+            this.btn_ver.setEnabled(true);
         }
     }//GEN-LAST:event_listaPacientesValueChanged
 
@@ -152,9 +168,20 @@ public class VentanaPacientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_editarActionPerformed
 
+    private void btn_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verActionPerformed
+        // TODO add your handling code here:
+        VentanaTurnosPaciente vtP = new VentanaTurnosPaciente(this.controlador, this,this.paciente);
+        this.setVisible(false);
+        vtP.setLocationRelativeTo(null);
+        vtP.setResizable(false);
+        vtP.setVisible(true);
+        
+    }//GEN-LAST:event_btn_verActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_ver;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_titulo_lista;

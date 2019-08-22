@@ -75,6 +75,7 @@ public class Paciente extends Persona {
         this.listaCitas.remove(c);
     }
     
+    
     @Override
     public String toString() {
         return "(" + super.getDni() +  ") " + super.getApellidos() + " " + super.getNombres();
